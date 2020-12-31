@@ -1,0 +1,110 @@
+---
+title: "DEA Drug Ontology"
+author: "Raymond R Balise"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::html_document2:
+    df_print: kable
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r tidyverse}
+library(conflicted)
+suppressMessages(conflict_prefer("filter", "dplyr"))
+library(dplyr)
+#suppressPackageStartupMessages(library(tidyverse))
+```
+
+This is a summary of the the drugs on the DEA website.
+
+```{r}
+
+
+load("../../data/dea_factsheets.rda")
+
+category <- unique(dea_factsheets$category)
+
+# category
+
+class <- dea_factsheets %>% 
+  arrange(class) %>% 
+  # filter(class == "steroids") %>% 
+  select(class)
+  
+
+load("../../data/dea_brands.rda")
+
+class2 <- unique(dea_brands$class)
+
+brands <- dea_brands %>% 
+  arrange(class) %>% 
+  #filter(type == "oxycodone") %>% 
+  pull(brands)
+
+load("../../data/dea_controlled.rda")
+load("../../data/dea_street_names.rda")
+
+
+
+#unique(slang$brand)
+#unique(slang$Class)
+
+duplicates <- dea_street_names %>% 
+  group_by(slang) %>% 
+  filter(n() > 1) %>% 
+  arrange(slang)
+
+# unique(duplicates)
+```
+
+# Fact Sheets
+
+Two files, *dea_factsheets.rda* and *dea_brands.rda*, were created by scraping the "fact sheets" on the DEA website on September 10th 2020.
+
+## Drug Types
+
++ *dea_factsheets.rda* (N = `r nrow(dea_factsheets)` records) has `r length(category)` drug categories and `r nrow(class)` classes (e.g., `r class$class[1]`, `r class$class[2]`, etc.)
+
+```{r}
+sort(category) %>% 
+  knitr::kable(col.names = "Category")
+```
+
+## Drug Brands
+
++ *dea_brands.rda* (N = `r nrow(dea_brands)` records) has `r length(class2)` drug classes (e.g., `r class2[1:3]`, etc.) and `r length(brands)`  brands (e.g., `r brands[1]`, `r brands[2]`, etc.)
+
+# PDFs
+
+Two pdfs, with slang^[https://www.dea.gov/sites/default/files/resource-center/Publications/Intel%20Products/DIR-020-17%20Drug%20Slang%20Code%20Words.pdf] and controlled substances^[https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf] were download and processed to make  *slang.rda* and *controlled.rda*.
+
+## Slang
+
+
++ *slang.rda* (N = `r nrow(dea_street_names)` records) contains `r length(unique(dea_street_names$class))` drug classes and `r length(unique(dea_street_names$brand)) - 1` brands (e.g., `r unique(dea_street_names$brand)[2:4]`). 
+
+
+    + Note Percocet® is here as a class but it is not in the scraped files.  
+    + Several extra classes are in the slang file including: Hydrocodone, Crack Cocaine, Marijana Concentrates, PCP and Promethazine with Codeine. 
+    + Discrepancies, relative to the fact sheets, include *psilocybin* listed as *Mushrooms*, *bath salts* listed as *Synthetic Cathinones*, *synthetic marijuana* listed as *Synthetic Cannabinoids*.
+    + There are `r nrow(unique(duplicates$slang))` dpulicate terms (e.g., `r unique(duplicates$slang)[1:3]`)
+
+## Controlled Substances
+
++ *dea_controlled.rda* (N = `r nrow(dea_controlled)` records) has these variables
+    + `substance`: Chemical and/or brand names
+    + `Number`: 
+    + `Schedule`: I, II, III, IV or V
+    + `Narcotic`: Y or N
+    + `synonym`: Chemical and/or brand names
+
+Parsing the `SUBSTANCES` and `names` variables will be very difficult because the delimiters between drugs are not at all consistent.
+
+## Summary
+```{r, cache=FALSE, echo=FALSE, fig.align="center", fig.cap="DEA Website Drug Ontology"}
+knitr::include_graphics("./Drugs.jpg", error = FALSE)
+```

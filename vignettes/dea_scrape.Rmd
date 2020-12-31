@@ -1,0 +1,116 @@
+---
+title: "Scraping drug names and slang from web pages."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Scraping drug names and slang from web pages.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  eval = FALSE,
+  comment = "#>"
+)
+```
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DOPE)
+```
+This article assumes you have a basic understanding of what "scraping" is, so we will not get into the weeds on theory but more on the application in R using just a few packages: `rvest`, `dplyr` and `stringr`. 
+
+Before we start, let me point you to the `rvest` [documentation]("https://rvest.tidyverse.org/index.html") for installation and release information . 
+
+Although the documentation is quite comprehensive, I want to go over some very basic HTML definitions that will make your experience go a lot smoother.  
+
+- Elements: These are your main "tags" such as `<h1> Heading 1 </h1>` or `<p> Wine is life.</p>`. The basic structure of a page is:
+```
+<html>
+<body>
+  #body of your page
+</body>
+</html>
+```
+The `rvest::html_nodes()` function is what you will use to specify which elements, specifically the CSS selector. For example, calling `html_nodes(myhtmldoc, ".CSS-selector span") %>% html_text()` will retrieve the text associated with the specified `<span>` tag. If this doesn't make sense right away, don't worry you'll see an example below.  
+
+- Attributes: These provide additional information for the element, such as an image source (`src`) or a link's path (`href`). These are usually displayed as key/value pairs, i.e. `width="500"`. You will use `rvest::html_attr("YOUR ATTRIBUTE")` if you need to get specific details from an attribute.
+
+Finally, it's a good idea to familiarize yourself with the "Inspect" feature from your browser. This allows your to see the breakdown of any web-page your viewing. This is where you will also find the names for the elements and attributes you want to scrape!
+
+(pro tip: use the "select element feature to jump directly to the element you're looking for)
+
+
+```{r, cache=FALSE, echo=FALSE, fig.align="center", fig.cap="Figure 1. Console", out.width=5}
+knitr::include_graphics("../inst/extdata/console.png", error = FALSE)
+```
+
+*Note: `rvest` cannot handle JS, it only reads the HTML before JS loaded so some objects may not be possible to scrape with this package. However, if you have the inspect console open in your browser, go to the "Network" tab, refresh the page and try looking for a GET request made to an API (api may be in the URL). This is data stored in a JSON file which can be read using `jsonlite::fromJSON()`*
+
+Don't get intimidated. It's quite simple.  
+
+### Write a function to get the name, class and path of a drug
+
+```{r}
+library(conflicted)
+suppressMessages(conflict_prefer("filter", "dplyr"))
+library(xml2)  # read_html()
+library(rvest)  # html_nodes(), html_text()
+library(purrr)  # map_dfr()
+library(stringr)  # str_to_lower()
+library(tibble)  # tibble(),
+suppressPackageStartupMessages(library(dplyr))  # %>%, bind_rows()   
+
+get_drug_factsheets <- function(pg_num){
+  class <- read_html(paste0("https://www.dea.gov/factsheets?field_fact_sheet_category_target_id=All&page=", pg_num)) %>% 
+    html_nodes(".teaser-title--drug_fact_sheet span") %>% 
+    html_text() %>% 
+    str_to_lower()
+  category <- read_html(paste0("https://www.dea.gov/factsheets?field_fact_sheet_category_target_id=All&page=", pg_num)) %>% 
+    html_nodes(".teaser-category--drug-category") %>% 
+    html_text() %>% 
+    str_to_lower()
+  #get correct path to factsheet
+  path <- read_html(paste0("https://www.dea.gov/factsheets?field_fact_sheet_category_target_id=All&page=", pg_num)) %>% 
+    html_nodes(".teaser-title--drug_fact_sheet a") %>% 
+    html_attr("href")
+  #return 1x2 tibble
+  tibble("class" = class,
+         "category" = category,
+         "fact_path" = path
+         )
+}
+
+dea_factsheets <- map_dfr(0:2, get_drug_factsheets) 
+
+```
+
+This information gets us the drug's class, category and path. We will use the `path` variable to get available brand names for that particular drug.
+
+```{r}
+
+# function to pull the data - specifically the brand names of each of 
+#   the drug types from their factsheets
+get_brand <- function(drug_path, drug_class){
+  drug_brands <- read_html(paste0("https://www.dea.gov", drug_path)) %>% 
+    html_nodes(".field--what") %>%  # name of the div with the brand names
+    html_text() %>% 
+    str_remove_all("\n") %>%  # remove line breaks
+    str_split(" ", simplify = TRUE) %>%  # split the vector into individual strings
+    .[str_detect(., "®")] %>%  # find the strings that include the registered trademark symbol and subset 
+    str_remove_all(., "[,|.]")  # remove extra characters 
+  tibble("class" = drug_class,
+         "brands" = drug_brands)
+}
+
+dea_brands <- map2_dfr(dea_factsheets$fact_path, dea_factsheets$class, get_brand)
+```
+
+
+
+
+```{r}
+usethis::use_data(dea_factsheets, overwrite = TRUE)
+usethis::use_data(dea_brands, overwrite = TRUE)
+```

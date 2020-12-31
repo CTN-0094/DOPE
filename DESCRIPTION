@@ -1,0 +1,46 @@
+Package: DOPE
+Title: Drug Ontology Parsing Engine
+Version: 0.0.0.9002
+Authors@R: c(
+    person(given = "Raymond",
+           family = "Balise",
+           role = c("aut", "cre"),
+           email = "balise@miami.edu",
+           comment = c(ORCID = "0000-0002-9856-5901")),
+    person(given = "Layla",
+           family = "Bouzoubaa",
+           role = c("aut"),
+           email = "lab218@miami.edu",
+           comment = c(ORCID = "https://orcid.org/0000-0002-6616-0950")),
+     person(given = "Gabriel",
+           family = "Odom",
+           role = c("aut"),
+           email = "gabriel.odom@fiu.edu",
+           comment = c(ORCID = "0000-0003-1341-4555")))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
+Imports: 
+    dplyr
+Suggests: 
+    dm,
+    knitr,
+    rmarkdown,
+    conflicted,
+    purrr,
+    readr,
+    readxl,
+    rvest,
+    sqldf,
+    stringr,
+    tidyr,
+    tibble,
+    testthat,
+    usethis,
+    xml2
+VignetteBuilder: knitr

@@ -1,0 +1,89 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+inst/doc
+
+
+# User-specific files
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+# Mac
+.DS_Store
+.Thumbs.db
+Thumbs.db
+
+# R projects
+# *.Rproj
+
+# Exclude .Rmd output
+*.html
+
+# Exclude Excel
+*.xlsx
+*.xls
+
+# R data
+*.rds
+*.RDS
+*.Rds
+*.rda
+*.RDA
+*.Rda
+
+# csv data
+*.csv
+*.CSV
+*.Csv
+
+# sas data
+*.sas7bdat
+*.sas7bcat
+
+# VSC
+www/.vscode/
+inst/doc
+docs
+
+
+# Include Necessary Datasets
+!data/dea_brands.rda
+!data/dea_controlled.rda
+!data/dea_factsheets.rda
+!data/dea_street_names.rda
+!data/lookup_df.rda
+!data/noslang_street_names.rda
+!data/noslang_raw.rda

@@ -1,0 +1,128 @@
+---
+title: "Introduction to DOPE"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to DOPE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  echo = FALSE,
+  eval = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(conflicted)
+suppressMessages(conflict_prefer("filter", "dplyr"))
+library(dplyr)
+library(DOPE)
+```
+
+
+```{r}
+data(dea_factsheets)
+
+#load("../../data/dea_factsheets.rda")
+
+category <- unique(dea_factsheets$category)
+
+# category
+
+class <- dea_factsheets %>% 
+  arrange(class) %>% 
+  # filter(class == "steroids") %>% 
+  select(class)
+  
+
+#load("../../data/dea_brands.rda")
+
+class2 <- unique(dea_brands$class)
+
+brands <- dea_brands %>% 
+  arrange(class) %>% 
+  #filter(type == "oxycodone") %>% 
+  pull(brands)
+
+#load("../../data/dea_controlled.rda")
+#load("../../data/dea_street_names.rda")
+
+
+
+#unique(slang$brand)
+#unique(slang$Class)
+
+duplicates <- dea_street_names %>% 
+  group_by(slang) %>% 
+  filter(n() > 1) %>% 
+  arrange(slang)
+
+# unique(duplicates)
+```
+
+
+# DEA
+
+This is a summary of the the drugs on the DEA website.  It include drug category (i.e., stimulants, depressants, hallucinogens), classes (i.e.,  amphetamines, cocaine, barbiturates) and drug synonyms. Synonyms include brand/generic names (Adderall®, Vallium®, clonazepam) and street names (Apache, White Girl).  Eventually the ontology needs to be expanded to add a grouping variable for related synonyms.  For example, the generic clonazepam, the brand name Klonopin® and the street name *k-pin* all should be grouped with the general name clonazepam
+
+## Web Scrape
+Two files, *dea_factsheets.rda* and *dea_brands.rda*, were created by scraping the "fact sheets" on the DEA website on September 10th 2020. The fact had 12 records added because the DEA slang file has additional "classes" (e.g., crack cocaine, mushrooms, PCP, etc.).  These extra "classes" are problematic for the DEA ontology because they also include a specific brand name (i.e., ritalin) and two benzodiazepines (i.e., alprazolam, clonazepam).  Eventually these need to be added as part of a "generic name" level in the ontology.
+
+### Fact Sheets
+
++ *dea_factsheets.rda* (N = `r nrow(dea_factsheets)` records) has `r length(category)` drug categories and `r nrow(class)` classes (e.g., `r class$class[1]`, `r class$class[2]`, etc.).  One extra category "benzodiazepine" was added because it is a grouping category in the DEA slang file.
+
+```{r}
+sort(category) %>% 
+  knitr::kable(col.names = "Category")
+```
+
+### Drug Brands
+
++ *dea_brands.rda* (N = `r nrow(dea_brands)` records) has `r length(class2)` drug classes (e.g., `r class2[1:3]`, etc.) and `r length(brands)`  brands (e.g., `r brands[1]`, `r brands[2]`, etc.)
+
+## PDFs
+
+Two pdfs, with slang^[https://www.dea.gov/sites/default/files/resource-center/Publications/Intel%20Products/DIR-020-17%20Drug%20Slang%20Code%20Words.pdf] and controlled substances^[https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf] were download and processed to make  *slang.rda* and *controlled.rda*.
+
+### Slang
+
++ *dea_street_names.rda* (N = `r nrow(dea_street_names)` records) contains `r length(unique(dea_street_names$class))` drug classes and `r length(unique(dea_street_names$brand)) - 1` brands (e.g., `r unique(dea_street_names$brand)[2:4]`). 
+
+
+    + Note Percocet® is here as a class but it is not in the scraped files.  
+    + Several extra classes are in the slang file including: Hydrocodone, Crack Cocaine, Marijana Concentrates, PCP and Promethazine with Codeine. 
+    + Discrepancies, relative to the fact sheets, include *psilocybin* listed as *Mushrooms*, *bath salts* listed as *Synthetic Cathinones*, *synthetic marijuana* listed as *Synthetic Cannabinoids*.
+    + There are `r nrow(unique(duplicates$slang))` dpulicate terms (e.g., `r unique(duplicates$slang)[1:3]`)
+
+### Controlled Substances
+
++ *dea_controlled.rda* (N = `r nrow(dea_controlled)` records) has these variables
+    + `substance`: Chemical and/or brand names
+    + `number`: 
+    + `schedule`: I, II, III, IV or V
+    + `narcotic`: Y or N
+    + `synonym`: Chemical and/or brand names
+
+Parsing the `SUBSTANCES` and `names` variables will be very difficult because the delimiters between drugs are not at all consistent.
+
+## DEA Summary
+
+```{r, cache=FALSE, echo=FALSE, fig.align="center", fig.cap="Figure 1 shows the DEA website drug ontology. Problematic entries shown with a red callout.", out.width="100%"}
+knitr::include_graphics("../inst/extdata/Drugs.jpg", error = FALSE)
+```
+
+There are several things (in the black box) that need to be placed in the tree.  Things with the red call out are inconsistencies.
+
+# No Slang
+
+This is a summary of the the drugs on the no slang website.
+
+## Web Scrape
+One file, *noslang_street_names.rda* , was created by scraping the [*Drug Slang Dictionary*](https://www.noslang.com/drugs/dictionary) October 12th 2020.
+
++ *noslang_street_names.rda* has `r nrow(noslang_street_names)` drug related terms.

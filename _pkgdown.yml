@@ -1,0 +1,16 @@
+reference:
+
+- title: Functions
+  contents:
+  - lookup
+  - compress_lookup
+
+- title: Tables
+  contents:
+  - dea_brands
+  - dea_controlled
+  - dea_factsheets
+  - dea_street_names
+  - lookup_df
+  - noslang_raw
+  - noslang_street_names
