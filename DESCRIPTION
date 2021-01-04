@@ -17,7 +17,10 @@ Authors@R: c(
            role = c("aut"),
            email = "gabriel.odom@fiu.edu",
            comment = c(ORCID = "0000-0003-1341-4555")))
-Description: What the package does (one paragraph).
+Description: The DOPE package contains information on drug names (brand, 
+    generic and steet) for drugs tracked by the DEA.  There are functions that 
+    will search synnonyms and return the drug names and types.  The vignettes 
+    have extensive information on the work done to creating the package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
