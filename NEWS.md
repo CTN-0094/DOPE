@@ -8,7 +8,7 @@ Fixed more typos
 
 # DOPE 1.0.1
 
-Fied typos
+Fixed typos
 
 # DOPE 1.0.0
 
