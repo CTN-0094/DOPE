@@ -21,7 +21,7 @@ library(DOPE)
 ```
 This article assumes you have a basic understanding of what "scraping" is, so we will not get into the weeds on theory but more on the application in R using just a few packages: `rvest`, `dplyr` and `stringr`. 
 
-Before we start, let me point you to the `rvest` [documentation]("https://rvest.tidyverse.org/index.html") for installation and release information . 
+Before we start, let me point you to the `rvest` [documentation](https://rvest.tidyverse.org/index.html) for installation and release information . 
 
 Although the documentation is quite comprehensive, I want to go over some very basic HTML definitions that will make your experience go a lot smoother.  
 

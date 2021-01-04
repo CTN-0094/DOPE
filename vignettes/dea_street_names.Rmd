@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 
 "c_cs_alpha.pdf" was downloaded from https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf on 2020-09-08
 
-"DIR-020-17 Drug Slang Code Words.pdf" was downloaded from https://www.dea.gov/documents/2017/05/01/ on 2020-09-08
-The file name was chagned
+"DIR-020-17 Drug Slang Code Words.pdf" was downloaded from https://www.dea.gov/documents/2017/05/01 on 2020-09-08
+The file name was changed
 
 
 ```{r}
