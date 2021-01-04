@@ -1,8 +1,14 @@
 # DOPE 1.0.3
 
+Fixed URLs
+
 # DOPE 1.0.2
 
+Fixed more typos
+
 # DOPE 1.0.1
+
+Fied typos
 
 # DOPE 1.0.0
 
