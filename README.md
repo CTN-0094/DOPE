@@ -6,7 +6,7 @@
 
 The goal of DOPE is to provide a structured vocabulary and tools to look up details on drugs tracked by the DEA.  The data structure is:
 
-![Figure 1. Detailed view of data structure can be seen on the package website.](../inst/extdata/Drugs.jpg)
+![Figure 1. Detailed view of data structure can be seen on the package website.](./inst/extdata/Drugs.jpg)
 
 ## Installation
 
