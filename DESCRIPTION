@@ -1,6 +1,6 @@
 Package: DOPE
 Title: Drug Ontology Parsing Engine
-Version: 0.0.0.9002
+Version: 1.0.0
 Authors@R: c(
     person(given = "Raymond",
            family = "Balise",

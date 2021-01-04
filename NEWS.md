@@ -1,4 +1,4 @@
-# DOPE (development version)
+# DOPE 1.0.0
 
 * MVP
 
