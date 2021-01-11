@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,8 +100,8 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/conflicted">conflicted</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/conflicted">conflicted</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/conflicted/man/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"filter"</span>, <span class="st">"dplyr"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DOPE</span><span class="op">)</span>  
@@ -115,15 +115,15 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span> <span class="co"># pivot_longer()</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>  <span class="co"># tibble()</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span>  <span class="co"># use_data()</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span>  <span class="co"># use_data()</span></pre></div>
 <div id="scrape-no-slang-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#scrape-no-slang-data" class="anchor"></a>Scrape No Slang Data</h1>
 <p><em>There is an additional source where slang (synonyms) were scraped: <a href="https://www.noslang.com/drugs/dictionary" class="uri">https://www.noslang.com/drugs/dictionary</a></em></p>
 <p><img src="../inst/extdata/noslang.png"></p>
 <p>The methods in which this data were extracted are very similar to how data from the DEA were extracted but we will include them here as well:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">get_slang</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">page</span><span class="op">)</span><span class="op">{</span>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">get_slang</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">page</span><span class="op">)</span><span class="op">{</span>
   <span class="va">street_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"https://www.noslang.com/drugs/dictionary/"</span>, 
                                   <span class="va">page</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span><span class="op">(</span><span class="st">"table abbr"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -145,14 +145,14 @@
 <span class="va">noslang_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">pages</span>, <span class="va">get_slang</span><span class="op">)</span> 
 
 
-<span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">noslang_raw</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">noslang_raw</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 </div>
 <div id="finding-drug-names" class="section level1">
 <h1 class="hasAnchor">
 <a href="#finding-drug-names" class="anchor"></a>Finding Drug Names</h1>
 <p>In the No Slang dataset, noslang_street_names (which was scraped from the NoSlang website) there is a <code>description</code> variable which contains both drug names and other phrases, for things like amounts. For the <code>DOPE</code> package we extracted the drug names. To do this, a dataset called <code>ns</code> was created that contains the unique words/phrases in <code>description</code>. The code below, adds indicator variables beginning with “d_”. That set of variables were created by first checking for drugs that were mentioned by the DEA files. The total number of known drugs in the <code>description</code> were tallied. The records that contained 0 drug names were manually checked and new “d_” variables were added if the description was for a drug. The new drugs mentioned by NewSlang.org are marked with “# NS”. There are some misspelling and slang words in the <code>description</code> variable. They appear in a <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> separated list in the <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> calls below.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
+<div class="sourceCode" id="cb3"><pre class="downlit">
+
 <span class="co"># add note to use singular instead of plural</span>
 <span class="co"># add note to use common abbreviations (lsd) vs long names</span>
 
@@ -330,7 +330,7 @@
 
 <span class="co"># Add talwin</span>
 
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">noslang_street_names</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">noslang_street_names</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 </div>
   </div>
 
