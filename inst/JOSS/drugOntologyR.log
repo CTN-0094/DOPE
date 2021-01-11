@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2020.4.4)  5 JAN 2021 09:28
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2020.4.4)  11 JAN 2021 13:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -964,34 +964,34 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 (./drugOntologyR.aux)
 \openout1 = `drugOntologyR.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 243.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 244.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
-43.
+44.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 243.
-LaTeX Font Info:    ... okay on input line 243.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 244.
+LaTeX Font Info:    ... okay on input line 244.
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box72
-Package hyperref Info: Link coloring ON on input line 243.
+Package hyperref Info: Link coloring ON on input line 244.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/local/texlive/2019/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1003,9 +1003,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count453
 )
-LaTeX Info: Redefining \ref on input line 243.
-LaTeX Info: Redefining \pageref on input line 243.
-LaTeX Info: Redefining \nameref on input line 243.
+LaTeX Info: Redefining \ref on input line 244.
+LaTeX Info: Redefining \pageref on input line 244.
+LaTeX Info: Redefining \nameref on input line 244.
 (./drugOntologyR.out) (./drugOntologyR.out)
 \@outlinefile=\write8
 \openout8 = `drugOntologyR.out'.
@@ -1027,8 +1027,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'drugOntologyR.bbl' not found.
 No file drugOntologyR.bbl.
-Package biblatex Info: Reference section=0 on input line 243.
-Package biblatex Info: Reference segment=0 on input line 243.
+Package biblatex Info: Reference section=0 on input line 244.
+Package biblatex Info: Reference segment=0 on input line 244.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1063,7 +1063,7 @@ Package biblatex Info: Reference segment=0 on input line 243.
 * \@reversemargintrue
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 243.
+LaTeX Info: Redefining \microtypecontext on input line 244.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -1082,14 +1082,14 @@ Package microtype Info: Loading generic protrusion settings for font family
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 244
+LaTeX Font Info:    Trying to load font information for U+msa on input line 245
 .
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 244
+LaTeX Font Info:    Trying to load font information for U+msb on input line 245
 .
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1097,15 +1097,15 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 
-Package hyperref Warning: Suppressing link with empty target on input line 270.
+Package hyperref Warning: Suppressing link with empty target on input line 271.
 
 
 
-Package hyperref Warning: Suppressing link with empty target on input line 270.
+Package hyperref Warning: Suppressing link with empty target on input line 271.
 
 
 
-Package hyperref Warning: Suppressing link with empty target on input line 270.
+Package hyperref Warning: Suppressing link with empty target on input line 271.
 
 
 File: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rticles/rm
@@ -1119,7 +1119,7 @@ We now make it that large for the rest of the document.
 This may cause the page layout to be inconsistent, however.
 
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 330.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 331.
 [1
 
 ]
@@ -1134,23 +1134,17 @@ arkdown/templates/joss/resources/JOSS-logo.png Graphic file (type bmp)
 wn/templates/joss/resources/JOSS-logo.png>
 [2]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 371.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 372.
 File: drugOntologyR_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type
  pdf)
 <use drugOntologyR_files/figure-latex/unnamed-chunk-4-1.pdf>
-
-Underfull \hbox (badness 7344) in paragraph at lines 385--408
-\TU/lmtt/m/n/10 "pizza", soda"), compressClass = TRUE, compressSynonym = TRUE)\
-TU/lmr/m/n/10 . As shown
- []
-
 File: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rticles/rm
 arkdown/templates/joss/resources/JOSS-logo.png Graphic file (type bmp)
 </Library/Frameworks/R.framework/Versions/4.0/Resources/library/rticles/rmarkdo
 wn/templates/joss/resources/JOSS-logo.png>
 [3]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 411.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 412.
 File: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rticles/rm
 arkdown/templates/joss/resources/JOSS-logo.png Graphic file (type bmp)
 </Library/Frameworks/R.framework/Versions/4.0/Resources/library/rticles/rmarkdo
@@ -1161,11 +1155,11 @@ arkdown/templates/joss/resources/JOSS-logo.png Graphic file (type bmp)
 </Library/Frameworks/R.framework/Versions/4.0/Resources/library/rticles/rmarkdo
 wn/templates/joss/resources/JOSS-logo.png>
 [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 511.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 511.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 509.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 509.
 (./drugOntologyR.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 511.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 511.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 509.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 509.
 Package rerunfilecheck Info: File `drugOntologyR.out' has not changed.
 (rerunfilecheck)             Checksum: 34C7A0D83FB0C19C09835F8401F5AED8;363.
 Package logreq Info: Writing requests to 'drugOntologyR.run.xml'.
@@ -1173,10 +1167,10 @@ Package logreq Info: Writing requests to 'drugOntologyR.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35301 strings out of 479805
- 701622 string characters out of 5893181
- 1418406 words of memory out of 5000000
- 51858 multiletter control sequences out of 15000+600000
+ 35302 strings out of 479805
+ 701627 string characters out of 5893181
+ 1416465 words of memory out of 5000000
+ 51859 multiletter control sequences out of 15000+600000
  539210 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  60i,12n,77p,1202b,788s stack positions out of 5000i,500n,10000p,200000b,80000s
