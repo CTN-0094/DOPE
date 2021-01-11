@@ -62,7 +62,7 @@ An inspection of the DEA website (https://www.dea.gov/factsheets and https://www
 
 
 
-![Structure of Drug Categories, Classes, Synonmyms and Names](drugOntologyR_files/figure-latex/unnamed-chunk-2-1.pdf) 
+![Structure of Drug Categories, Classes, Synonmyms and Names](paper_files/figure-latex/unnamed-chunk-2-1.pdf) 
 
 \begin{figure}[H]
 
@@ -79,7 +79,7 @@ Figure 3 displays the *entity relationship* diagram with the tables, variables a
 
 
 \begin{figure}[H]
-\includegraphics[width=0.6\linewidth]{drugOntologyR_files/figure-latex/unnamed-chunk-4-1} \caption{Entity Relationship Diagram for Tables in DOPE}\label{fig:unnamed-chunk-4}
+\includegraphics[width=0.6\linewidth]{paper_files/figure-latex/unnamed-chunk-4-1} \caption{Entity Relationship Diagram for Tables in DOPE}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 
