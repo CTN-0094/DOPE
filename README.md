@@ -2,6 +2,8 @@
 # Drug Ontology Parsing Engine (DOPE)
 
 <!-- badges: start -->
+  [![CRAN status](https://www.r-pkg.org/badges/version/DOPE)](https://CRAN.R-project.org/package=DOPE)
+  [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
 The goal of DOPE is to provide a structured vocabulary and tools to look up details on drugs tracked by the DEA.  The data structure is:
