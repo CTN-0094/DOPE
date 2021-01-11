@@ -49,9 +49,6 @@ Thumbs.db
 # R projects
 # *.Rproj
 
-# Exclude .Rmd output
-*.html
-
 # Exclude Excel
 *.xlsx
 *.xls
