@@ -1,5 +1,5 @@
 
-# Drug Ontology Parsing Engine (DOPE)
+# Drug Ontology Parsing Engine (DOPE) <a href='https://ctn-0094.github.io/DOPE/'><img src='man/figures/DOPE_hex.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
   [![CRAN status](https://www.r-pkg.org/badges/version/DOPE)](https://CRAN.R-project.org/package=DOPE)
