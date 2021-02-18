@@ -76,3 +76,8 @@ clean_names <- purrr::map_chr(filtered_drugs$drug, function(.x){
 
 freq <- janitor::tabyl(clean_names$drug)
 
+#with lookup()
+library(DOPE)
+test <- clean_names$drug[1:10]
+DOPE::lookup(test)
+
