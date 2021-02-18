@@ -27,7 +27,7 @@ lookup <- function(...,
 
   # Convert all names to lower case; https://github.com/labouz/DOPE/issues/39
   thingy_char <- vapply(
-    X = as.character(list(...)),
+    X = as.character(as.list(...)),
     FUN = tolower,
     FUN.VALUE = character(1),
     USE.NAMES = FALSE
