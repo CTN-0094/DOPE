@@ -2,3 +2,4 @@
 
 export(compress_lookup)
 export(lookup)
+export(parse)
