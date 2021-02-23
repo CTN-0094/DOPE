@@ -19,19 +19,35 @@
 #' @examples
 #'   lookup("zip", "shrooms")
 
-lookup <- function(...,
+lookup <- function(drug_vec = NULL, ...,
                    searchCategory = TRUE,
                    searchClass = TRUE,
                    searchSynonym = TRUE) {
   # browser()
 
-  # Convert all names to lower case; https://github.com/labouz/DOPE/issues/39
-  thingy_char <- vapply(
-    X = as.character(as.list(...)),
-    FUN = tolower,
-    FUN.VALUE = character(1),
-    USE.NAMES = FALSE
-  )
+  if (length(drug_vec) > 1){
+    # we expect ... to be empty
+    if(length(list(...)) > 0){
+      stop("Using `drug_vec` argument with other words is not allowed. Please see the examples.", call. = FALSE)
+    }
+    # Convert all names to lower case; https://github.com/labouz/DOPE/issues/39
+    thingy_char <- vapply(
+      X = as.character(drug_vec),
+      FUN = tolower,
+      FUN.VALUE = character(1),
+      USE.NAMES = FALSE
+    )
+  } else {
+    # Convert all names to lower case; https://github.com/labouz/DOPE/issues/39
+    thingy <- c(drug_vec, as.character(list(...)))
+    thingy_char <- vapply(
+      X = as.character(thingy),
+      FUN = tolower,
+      FUN.VALUE = character(1),
+      USE.NAMES = FALSE
+    )
+  }
+
 
   # Find rows that match the thingy, but set the base logic to FALSE
   categoryRowMatches <- classRowMatches <- synonymRowMatches <- FALSE
