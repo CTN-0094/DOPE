@@ -15,9 +15,9 @@
 #' @examples
 #'   parse("./inst/extdata/CTN94TEXTFILLS.xlsx")
 
-parse <- function(path){
+parse <- function(x){
 
-  drug_data <- readxl::read_excel(path)
+  drug_data <- x
 
   ###ID drug col----------------
 
@@ -37,7 +37,7 @@ parse <- function(path){
   }
 
   ####Parse out drug names-------------------------------
-  stop_words <- data("stop_words", package = "tidytext")
+  data("stop_words", package = "tidytext")
   drug_stop_words <- c("a", "few", "mg", "pills", "pill","days", "off", "bunch", "street",
                        "tab", "tabs", "detox", "rx", "not", "unsure", "unknown",
                        "clinic", "bottle", "unknkwn", "type", "patch", "pm", "which",
@@ -77,5 +77,6 @@ parse <- function(path){
   }) %>%
     dplyr::tibble(drug = .) %>%
     na.omit()
+  clean_names
 
 }
