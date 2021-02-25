@@ -43,7 +43,7 @@ parse <- function(df){
   }
 
   ####Parse out drug names-------------------------------
-  data("stop_words", package = "tidytext")
+  # data("stop_words", package = "tidytext")
   drug_stop_words <- c("a", "few", "mg", "pills", "pill","days", "off", "bunch", "street",
                        "tab", "tabs", "detox", "rx", "not", "unsure", "unknown",
                        "clinic", "bottle", "unknkwn", "type", "patch", "pm", "which",
@@ -75,7 +75,7 @@ parse <- function(df){
     ) %>%
     tidytext::unnest_tokens(word, for_token, token = "regex", pattern = "[ ]",
                             to_lower = TRUE) %>%
-    dplyr::anti_join(stop_words) %>%
+    dplyr::anti_join(tidytext::stop_words) %>%
     dplyr::filter(!grepl("[0-9]|[=]|[-]|[&]|[(]|[)]|[.]", word))
 
   #filter for drug specific stop-words
