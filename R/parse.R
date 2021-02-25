@@ -4,28 +4,34 @@
 #' @description This function provides a dataframe of parsed out strings from a
 #'   free text field given a file path specified by the user.
 #'
-#' @param path Path to the file containing the free text to be parsed
+#' @param df A data frame or data frame extension (e.g. a tibble) containing the free text to be parsed
 #'
 #' @return A n x 1 dataframe with class \code{data.frame}, \code{tbl_df}, \code{tbl}.
 #'   The dataframe has 1 variable, "drug"
 #' @importFrom utils data
 #' @importFrom stats na.omit
+#' @importFrom magrittr %>%
 #' @export
 #'
 #' @examples
-#'   parse("./inst/extdata/CTN94TEXTFILLS.xlsx")
+#' \dontrun{
+#' parse(drug_df)
+#' }
 
-parse <- function(x){
+parse <- function(df){
 
-  drug_data <- x
+  #binding vars to function
+  word <- drug <- for_token <- stop_words <- NULL
+
+  drug_data <- df
 
   ###ID drug col----------------
 
   cols <- colnames(drug_data)
 
   #gather all cols separated by a new line for readline
-  colOptions <- purrr::map_chr(1:length(cols), function(.x){
-    paste0(.x, ". ", cols[.x])
+  colOptions <- sapply(1:length(cols), function(x){
+    paste0(x, ". ", cols[x])
   })
 
   #function to subset data
@@ -41,41 +47,58 @@ parse <- function(x){
   drug_stop_words <- c("a", "few", "mg", "pills", "pill","days", "off", "bunch", "street",
                        "tab", "tabs", "detox", "rx", "not", "unsure", "unknown",
                        "clinic", "bottle", "unknkwn", "type", "patch", "pm", "which",
-                       "injection", "er", "medication", "mgs")
+                       "injection", "er", "medication", "mgs", "illicit", "iv", "left",
+                       "patches", "visit")
 
   ##INTERACTIVE - must respond!
   drugs <- get_col()
   drugCol <- as.name(names(drugs))
 
   #unnest tokens and remove special characters
-  #special case: any combination of bup and nx should remain together
+  #get special cases
+  #ex. Bup/Nx = Bup/Nx. = bup/nx = Bup Nx. = Bup Nx. = Bup Xx. = BupNx
+  ## should be preserved - replace with any with spaces to have / so all
+  ## are consistently bup/nx
+  #ex. and combination of "speedball" also preserved
   unnested_drugs <- drugs %>%
-    tidytext::unnest_tokens(word, drugCol, token = "regex", pattern = "[, | \\s+]",
-                  to_lower = TRUE) %>%
+    tidytext::unnest_tokens(word, drugCol, token = "regex", pattern = "[,|-]",
+                            to_lower = TRUE) %>%
+    dplyr::mutate(drug = trimws(tolower(word)),
+                  #logic if a word can be tokenized or must remain as is
+                  is_token = stringr::str_detect(drug, "(?=.*bup)(?=.*nx)|(?=.*speed)(?=.*ball)"),
+                  #get the word to be tokenized
+                  for_token =  dplyr::case_when(stringr::str_detect(drug, "(?=.*bup)(?=.*nx)") == TRUE ~ "bup/nx",
+                                                stringr::str_detect(drug, "(?=.*speed)(?=.*ball)") == TRUE ~ "speedball",
+                                                #change any "/" to spaces
+                                                is_token == FALSE ~ gsub("/", " ", drug),
+                                                TRUE ~ drug),
+    ) %>%
+    tidytext::unnest_tokens(word, for_token, token = "regex", pattern = "[ ]",
+                            to_lower = TRUE) %>%
     dplyr::anti_join(stop_words) %>%
-    dplyr::filter(!grepl("[0-9]|[=]|[-]|[&]|[ \\s+]", word))
+    dplyr::filter(!grepl("[0-9]|[=]|[-]|[&]|[(]|[)]|[.]", word))
+
   #filter for drug specific stop-words
-  filtered_drugs <- gsub('"',"", unnested_drugs$word) %>%
-    dplyr::tibble(drug = .) %>%
+  filtered_drugs <- gsub('"',"", unnested_drugs$word)
+  filtered_drugs <- dplyr::tibble(drug = filtered_drugs) %>%
     #filter custom stopwords
     dplyr::filter(!drug %in% drug_stop_words)
 
   #####Cleaning------------------------------
-  #ex. Bup/Nx = Bup/Nx. = bup/nx = Bup Nx. = Bup Nx. = Bup Xx. = BupNx
-  #need to remove punctuation
-  clean_names <- purrr::map_chr(filtered_drugs$drug, function(.x){
+  # extra cleaning
+  clean_names <- sapply(filtered_drugs$drug, function(x){
     #remove anything after a / or - or = or "
-    name <- sub("/.*|-.*|=.*|\".*", "", .x)
+    name <- sub("\\(.*|-.*|=.*|\".*", NA, x)
     #Remove any strings that have parentheses and content
     sapply(name,
            function(x){
              #remove anything content within parentheses
              name <- trimws(gsub("\\([^\\)]+\\)","",x))
              #remove any extraneous characters
-             gsub("[^A-Za-z ]","",name)
+             #gsub("[^A-Za-z ]","",name)
            })
-  }) %>%
-    dplyr::tibble(drug = .) %>%
+  })
+  clean_names <- dplyr::tibble(drug = clean_names) %>%
     na.omit()
   clean_names
 

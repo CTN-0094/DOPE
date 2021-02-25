@@ -3,3 +3,6 @@
 export(compress_lookup)
 export(lookup)
 export(parse)
+importFrom(magrittr,"%>%")
+importFrom(stats,na.omit)
+importFrom(utils,data)

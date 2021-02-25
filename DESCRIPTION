@@ -35,7 +35,8 @@ Imports:
     purrr,
     stringr,
     stats,
-    utils
+    utils,
+    magrittr
 Suggests: 
     dm,
     knitr,

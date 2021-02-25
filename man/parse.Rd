@@ -4,10 +4,10 @@
 \alias{parse}
 \title{Parse a vector of free text given a file path}
 \usage{
-parse(path)
+parse(df)
 }
 \arguments{
-\item{path}{Path to the file containing the free text to be parsed}
+\item{df}{A data frame or data frame extension (e.g. a tibble) containing the free text to be parsed}
 }
 \value{
 A n x 1 dataframe with class \code{data.frame}, \code{tbl_df}, \code{tbl}.
@@ -18,5 +18,7 @@ This function provides a dataframe of parsed out strings from a
 free text field given a file path specified by the user.
 }
 \examples{
-  parse("./inst/extdata/CTN94TEXTFILLS.xlsx")
+\dontrun{
+parse(drug_df)
+}
 }
