@@ -30,15 +30,14 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr,
-    readxl,
     tidytext,
-    purrr,
     stringr,
     stats,
     utils,
     magrittr
 Suggests: 
     dm,
+    purrr,
     knitr,
     rmarkdown,
     conflicted,
