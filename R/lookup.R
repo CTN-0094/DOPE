@@ -23,7 +23,7 @@ lookup <- function(drug_vec = NULL, ...,
                    searchCategory = TRUE,
                    searchClass = TRUE,
                    searchSynonym = TRUE) {
-  # browser()
+
 
   if (length(drug_vec) > 1){
     # we expect ... to be empty
@@ -48,24 +48,49 @@ lookup <- function(drug_vec = NULL, ...,
     )
   }
 
+  # lookup individual words
+
+  answer <- purrr::map_df(thingy_char, .lookup,
+                          searchCategory,
+                          searchClass,
+                          searchSynonym)
+
+  row.names(answer) <- NULL
+  answer
+
+}
+
+# internal function to look a single "word"
+# takes a vector of length one hold the word to lookup and returns a
+#   data frame with all matches plus the original word
+
+.lookup <- function(x,
+                    searchCategory,
+                    searchClass,
+                    searchSynonym) {
 
   # Find rows that match the thingy, but set the base logic to FALSE
   categoryRowMatches <- classRowMatches <- synonymRowMatches <- FALSE
   if (searchCategory) {
-    categoryRowMatches <- DOPE::lookup_df$category %in% thingy_char
+    categoryRowMatches <- DOPE::lookup_df$category %in% x
   }
   if (searchClass) {
-    classRowMatches <- DOPE::lookup_df$class %in% thingy_char
+    classRowMatches <- DOPE::lookup_df$class %in% x
   }
   if (searchSynonym) {
-    synonymRowMatches <- DOPE::lookup_df$synonym %in% thingy_char
+    synonymRowMatches <- DOPE::lookup_df$synonym %in% x
   }
 
   # Combine row match logic (use OR for base FALSE layer)
   matches_lgl <- categoryRowMatches | classRowMatches | synonymRowMatches
 
   answer <-  DOPE::lookup_df[matches_lgl,, drop = FALSE]
-  row.names(answer) <- NULL
-  answer
 
+  if (nrow(answer) == 0){
+    answer <- data.frame(category = NA_character_,  class = NA_character_,
+                         synonym = NA_character_, original_word = x)
+  } else{
+    answer$original_word <- x
+  }
+  answer
 }
