@@ -1,10 +1,10 @@
 
-#' Parse a vector of free text given a file path
+#' Parse a vector of free text containing drug information
 #'
 #' @description This function provides a dataframe of parsed out strings from a
 #'   free text field given a file path specified by the user.
 #'
-#' @param df A data frame or data frame extension (e.g. a tibble) containing the free text to be parsed
+#' @param drug_vec A vector containing the free text to be parsed
 #'
 #' @return A n x 1 dataframe with class \code{data.frame}, \code{tbl_df}, \code{tbl}.
 #'   The dataframe has 1 variable, "drug"
@@ -18,29 +18,29 @@
 #' parse(drug_df)
 #' }
 
-parse <- function(df){
+parse <- function(drug_vec){
 
   #binding vars to function
   word <- drug <- for_token <- stop_words <- NULL
 
-  drug_data <- df
+  # drug_data <- df
 
   ###ID drug col----------------
 
-  cols <- colnames(drug_data)
+  # cols <- colnames(drug_data)
 
   #gather all cols separated by a new line for readline
-  colOptions <- sapply(1:length(cols), function(x){
-    paste0(x, ". ", cols[x])
-  })
+  # colOptions <- sapply(1:length(cols), function(x){
+  #   paste0(x, ". ", cols[x])
+  # })
 
   #function to subset data
-  get_col <- function(){
-    prompt <- stringr::str_c(c("Which column contains drug names?:",colOptions),
-                             collapse = " \n")
-    colNum <- as.numeric(readline(prompt))
-    drug_data[ ,colNum] #returns tibble of n X 1
-  }
+  # get_col <- function(){
+  #   prompt <- stringr::str_c(c("Which column contains drug names?:",colOptions),
+  #                            collapse = " \n")
+  #   colNum <- as.numeric(readline(prompt))
+  #   drug_data[ ,colNum] #returns tibble of n X 1
+  # }
 
   ####Parse out drug names-------------------------------
   # data("stop_words", package = "tidytext")
@@ -51,7 +51,9 @@ parse <- function(df){
                        "patches", "visit")
 
   ##INTERACTIVE - must respond!
-  drugs <- get_col()
+  # drugs <- get_col()
+  #convert vector to df
+  drugs <- as.data.frame(drug_vec)
   drugCol <- as.name(names(drugs))
 
   #unnest tokens and remove special characters
