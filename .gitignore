@@ -74,7 +74,7 @@ Thumbs.db
 www/.vscode/
 inst/doc
 
-
+inst/extdata/make_test_data.R
 
 # Include Necessary Datasets
 !data/dea_brands.rda
