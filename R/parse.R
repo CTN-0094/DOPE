@@ -48,7 +48,9 @@ parse <- function(drug_vec){
                        "tab", "tabs", "detox", "rx", "not", "unsure", "unknown",
                        "clinic", "bottle", "unknkwn", "type", "patch", "pm", "which",
                        "injection", "er", "medication", "mgs", "illicit", "iv", "left",
-                       "patches", "visit")
+                       "patches", "visit", "hcl", "plus", "hd", "bit", "cit",
+                       "sulf", "tart", "c-ject", "es", "hp", "syringe", "contin",
+                       "intensol", "ject", "calcium")
 
   ##INTERACTIVE - must respond!
   # drugs <- get_col()
@@ -67,9 +69,9 @@ parse <- function(drug_vec){
                             to_lower = TRUE) %>%
     dplyr::mutate(drug = trimws(tolower(word)),
                   #logic if a word can be tokenized or must remain as is
-                  is_token = stringr::str_detect(drug, "(?=.*bup)(?=.*nx)|(?=.*speed)(?=.*ball)"),
+                  is_token = stringr::str_detect(drug, "(?=.*bup)(?=.*nx|.*nal|.*nar)|(?=.*speed)(?=.*ball)"),
                   #get the word to be tokenized
-                  for_token =  dplyr::case_when(stringr::str_detect(drug, "(?=.*bup)(?=.*nx)") == TRUE ~ "bup/nx",
+                  for_token =  dplyr::case_when(stringr::str_detect(drug, "(?=.*bup)(?=.*nx|.*nal|.*nar)") == TRUE ~ "bup/nx",
                                                 stringr::str_detect(drug, "(?=.*speed)(?=.*ball)") == TRUE ~ "speedball",
                                                 #change any "/" to spaces
                                                 is_token == FALSE ~ gsub("/", " ", drug),
