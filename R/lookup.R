@@ -4,7 +4,8 @@
 #' @description This function provides a table with drug category and class
 #'   information all of the known drugs.
 #'
-#' @param ... multiple strings holding possible possible drug names
+#' @param drug_vec a vector of strings holding possible drug names
+#' @param ... multiple strings holding possible drug names
 #' @param searchCategory Should the substances listed in \code{...} be searched
 #'   for in column \code{category}? Defaults to TRUE.
 #' @param searchClass Should the substances listed in \code{...} be searched
@@ -12,8 +13,8 @@
 #' @param searchSynonym Should the substances listed in \code{...} be searched
 #'   for in column \code{synonym}? Defaults to TRUE.
 #'
-#' @return A lookup table with class \code{data.frame} having three columns:
-#'   drug category, drug class, and drug street name.
+#' @return A lookup table with class \code{data.frame} having four columns:
+#'   original search term, drug category, drug class, and drug street name.
 #' @export
 #'
 #' @examples
@@ -23,7 +24,6 @@ lookup <- function(drug_vec = NULL, ...,
                    searchCategory = TRUE,
                    searchClass = TRUE,
                    searchSynonym = TRUE) {
-
 
   if (length(drug_vec) > 1){
     # we expect ... to be empty
@@ -87,10 +87,10 @@ lookup <- function(drug_vec = NULL, ...,
   answer <-  DOPE::lookup_df[matches_lgl,, drop = FALSE]
 
   if (nrow(answer) == 0){
-    answer <- data.frame(category = NA_character_,  class = NA_character_,
-                         synonym = NA_character_, original_word = x)
+    answer <- data.frame(original_word = x, category = NA_character_,  class = NA_character_,
+                         synonym = NA_character_)
   } else{
-    answer$original_word <- x
+    answer <- data.frame(original_word = x, answer)
   }
   answer
 }
