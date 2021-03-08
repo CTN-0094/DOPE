@@ -5,7 +5,7 @@
 #'
 #' @usage data(lookup_df)
 #'
-#' @format A tibble with 29 rows and 3 variables:
+#' @format A tibble with 4,296 rows and 3 variables:
 #' \describe{
 #'   \item{category}{the drug category}
 #'   \item{class}{the drug class}

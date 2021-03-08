@@ -2,12 +2,12 @@
 % Please edit documentation in R/parse.R
 \name{parse}
 \alias{parse}
-\title{Parse a vector of free text given a file path}
+\title{Parse a vector of free text containing drug information}
 \usage{
-parse(df)
+parse(drug_vec)
 }
 \arguments{
-\item{df}{A data frame or data frame extension (e.g. a tibble) containing the free text to be parsed}
+\item{drug_vec}{A vector containing the free text to be parsed}
 }
 \value{
 A n x 1 dataframe with class \code{data.frame}, \code{tbl_df}, \code{tbl}.
