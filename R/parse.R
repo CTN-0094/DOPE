@@ -49,7 +49,8 @@ parse <- function(drug_vec){
                        "clinic", "bottle", "unknkwn", "type", "patch", "pm", "which",
                        "injection", "er", "medication", "mgs", "illicit", "iv", "left",
                        "patches", "visit", "hcl", "plus", "hd", "bit", "cit",
-                       "sulf", "tart", "c-ject", "es", "hp")
+                       "sulf", "tart", "c-ject", "es", "hp", "syringe", "contin",
+                       "intensol", "ject", "calcium")
 
   ##INTERACTIVE - must respond!
   # drugs <- get_col()
