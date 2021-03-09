@@ -13,7 +13,9 @@ lookup(
 )
 }
 \arguments{
-\item{...}{multiple strings holding possible possible drug names}
+\item{drug_vec}{a vector of strings holding possible drug namesYYYYYY}
+
+\item{...}{multiple strings holding possible drug names}
 
 \item{searchCategory}{Should the substances listed in \code{...} be searched
 for in column \code{category}? Defaults to TRUE.}
@@ -25,8 +27,8 @@ for in column \code{class}? Defaults to TRUE.}
 for in column \code{synonym}? Defaults to TRUE.}
 }
 \value{
-A lookup table with class \code{data.frame} having three columns:
-drug category, drug class, and drug street name.
+A lookup table with class \code{data.frame} having four columns:
+original search term, drug category, drug class, and drug street name.
 }
 \description{
 This function provides a table with drug category and class

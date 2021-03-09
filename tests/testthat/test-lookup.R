@@ -6,6 +6,7 @@
 
 ###  Basic Test  ###
 testOut_df <- data.frame(
+  original_word = c("zip", "zip", "zip"),
   category = c("stimulants", "cannabis", "stimulants"),
   class = c("cocaine", "marijuana", "methamphetamine"),
   synonym = c("zip", "zip", "zip")
@@ -31,6 +32,7 @@ test_that("lookup ignores cases", {
 
 ###  Test Dots  ###
 testOut2_df <- data.frame(
+  original_word = c("zip", "zip", "zip", "shrooms", "shrooms"),
   category = c(
     "stimulants", "cannabis", "stimulants",  "hallucinogen", "hallucinogen"
   ),
@@ -53,15 +55,15 @@ test_that("lookup with vector as first argument works", {
 
 output_string <- "Using `drug_vec` argument with other words is not allowed. Please see the examples."
 test_that("lookup vector and args outputs proper error message", {
-  expect_error(lookup(testOut_vector, "smack"), output_string, ignore.case = TRUE)
+  expect_error(lookup(test_vector, "smack"), output_string, ignore.case = TRUE)
 })
 
 ###  Test return of original word  ###
 testOut_df3 <- data.frame(
+  original_word = c("zip"),
   category = c("stimulants", "cannabis", "stimulants"),
   class = c("cocaine", "marijuana", "methamphetamine"),
-  synonym = c("zip", "zip", "zip"),
-  original_word = c("zip")
+  synonym = c("zip", "zip", "zip")
 )
 
 
