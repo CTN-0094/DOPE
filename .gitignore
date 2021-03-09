@@ -86,3 +86,4 @@ inst/extdata/make_test_data.R
 !data/lookup_df.rda
 !data/noslang_street_names.rda
 !data/noslang_raw.rda
+!data/iqvia.rda
