@@ -2,7 +2,7 @@
 #' Parse a vector of free text containing drug information
 #'
 #' @description This function provides a dataframe of parsed out strings from a
-#'   free text field given a file path specified by the user.
+#'   free text field, input as a vector, specified by the user.
 #'
 #' @param drug_vec A vector containing the free text to be parsed
 #'
@@ -15,32 +15,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' parse(drug_df)
+#' parse(drug_vec)
 #' }
 
 parse <- function(drug_vec){
 
   #binding vars to function
-  word <- drug <- for_token <- stop_words <- NULL
-
-  # drug_data <- df
-
-  ###ID drug col----------------
-
-  # cols <- colnames(drug_data)
-
-  #gather all cols separated by a new line for readline
-  # colOptions <- sapply(1:length(cols), function(x){
-  #   paste0(x, ". ", cols[x])
-  # })
-
-  #function to subset data
-  # get_col <- function(){
-  #   prompt <- stringr::str_c(c("Which column contains drug names?:",colOptions),
-  #                            collapse = " \n")
-  #   colNum <- as.numeric(readline(prompt))
-  #   drug_data[ ,colNum] #returns tibble of n X 1
-  # }
+  word <- drug <- for_token <- NULL
 
   ####Parse out drug names-------------------------------
   # data("stop_words", package = "tidytext")
@@ -56,7 +37,7 @@ parse <- function(drug_vec){
   # drugs <- get_col()
   #convert vector to df
   drugs <- as.data.frame(drug_vec)
-  drugCol <- as.name(names(drugs))
+  # drugCol <- as.name(names(drugs))
 
   #unnest tokens and remove special characters
   #get special cases
@@ -65,7 +46,7 @@ parse <- function(drug_vec){
   ## are consistently bup/nx
   #ex. and combination of "speedball" also preserved
   unnested_drugs <- drugs %>%
-    tidytext::unnest_tokens(word, drugCol, token = "regex", pattern = "[,|-]",
+    tidytext::unnest_tokens(word, drug_vec, token = "regex", pattern = "[,|-]",
                             to_lower = TRUE) %>%
     dplyr::mutate(drug = trimws(tolower(word)),
                   #logic if a word can be tokenized or must remain as is
