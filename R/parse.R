@@ -32,12 +32,8 @@ parse <- function(drug_vec){
                        "patches", "visit", "hcl", "plus", "hd", "bit", "cit",
                        "sulf", "tart", "c-ject", "es", "hp", "syringe", "contin",
                        "intensol", "ject", "calcium")
-
-  ##INTERACTIVE - must respond!
-  # drugs <- get_col()
   #convert vector to df
   drugs <- as.data.frame(drug_vec)
-  # drugCol <- as.name(names(drugs))
 
   #unnest tokens and remove special characters
   #get special cases
