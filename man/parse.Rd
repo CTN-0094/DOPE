@@ -15,10 +15,10 @@ The dataframe has 1 variable, "drug"
 }
 \description{
 This function provides a dataframe of parsed out strings from a
-free text field given a file path specified by the user.
+free text field, input as a vector, specified by the user.
 }
 \examples{
 \dontrun{
-parse(drug_df)
+parse(drug_vec)
 }
 }

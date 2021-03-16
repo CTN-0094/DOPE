@@ -4,7 +4,13 @@
 \alias{lookup}
 \title{Make a table with the category and class for a drug name}
 \usage{
-lookup(..., searchCategory = TRUE, searchClass = TRUE, searchSynonym = TRUE)
+lookup(
+  drug_vec = NULL,
+  ...,
+  searchCategory = TRUE,
+  searchClass = TRUE,
+  searchSynonym = TRUE
+)
 }
 \arguments{
 \item{...}{multiple strings holding possible possible drug names}
