@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,8 +100,8 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DOPE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DOPE</span><span class="op">)</span></code></pre></div>
 <p>c_cs_alpha.pdf downloaded <a href="https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf" class="uri">https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf</a> 2020-09-08</p>
 <p>The text file, c_cs_alpha.txt, was opened with UltraEdit and edited to remove headers and the data were aligned to match the drug number column. That manual editing to remove the headers should be done programmatically (perhaps with a package that emulates PERL). Aligning of the drug number column is a major coding task given the structure of the data.</p>
 <p>That file was opened in Excel to spit into columns. This should be redone in R.</p>
@@ -133,31 +133,31 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span>
-<span class="va">controlled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"../inst/extdata/c_cs_alpha.xlsx"</span><span class="op">)</span></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/conflicted">conflicted</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span>
+<span class="va">controlled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"../inst/extdata/c_cs_alpha.xlsx"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/conflicted">conflicted</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/conflicted/man/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"filter"</span>, <span class="st">"dplyr"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://stringr.tidyverse.org">stringr</a></span><span class="op">)</span>  <span class="co"># str_count &amp; str_detect</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>  <span class="co"># separate</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>  <span class="co"># write_csv</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>  <span class="co"># write_csv</span></code></pre></div>
 <div id="mark-names-that-will-be-diffcult-to-parse" class="section level1">
 <h1 class="hasAnchor">
 <a href="#mark-names-that-will-be-diffcult-to-parse" class="anchor"></a>Mark names that will be diffcult to parse</h1>
 <p>The Names column can have many different synonyms for a drug (street and/or brand). I am marking names records that have an open parenthisis <code>(</code> or a comma followed by something other than a space as being difficult to parse.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">new</span> <span class="op">&lt;-</span> <span class="va">controlled</span> <span class="op">%&gt;%</span> 
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new</span> <span class="op">&lt;-</span> <span class="va">controlled</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>difficult <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">Names</span>, <span class="st">"[(]"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">|</span> 
-           <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">controlled</span><span class="op">$</span><span class="va">Names</span>, <span class="st">",(?=\\S)"</span><span class="op">)</span><span class="op">)</span></pre></div>
+           <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">controlled</span><span class="op">$</span><span class="va">Names</span>, <span class="st">",(?=\\S)"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="difficult-synonyms" class="section level1">
 <h1 class="hasAnchor">
 <a href="#difficult-synonyms" class="anchor"></a><em>Difficult</em> synonyms</h1>
 <p>Here the difficult names are exported to a text file and then parsed by to separate names with semi-colons. Check the git history for a partial solution that automated this for specific types complexities.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co"># filtered rows where synonyms are "difficult"</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># filtered rows where synonyms are "difficult"</span>
 <span class="va">difficult</span> <span class="op">&lt;-</span> <span class="va">new</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">difficult</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span>
 
@@ -188,7 +188,7 @@
     values_to <span class="op">=</span> <span class="st">"synonym"</span>, 
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">Names</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">synonym</span> <span class="op">!=</span> <span class="st">''</span><span class="op">)</span> </pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">synonym</span> <span class="op">!=</span> <span class="st">''</span><span class="op">)</span> </code></pre></div>
 </div>
 <div id="easy-synonyms" class="section level1">
 <h1 class="hasAnchor">
@@ -207,8 +207,8 @@
 <li>row #422: replace “and” with a comma</li>
 <li>row #423: replace “and” with a comma</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="co"># filtered rows where synonyms are NOT "difficult"</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># filtered rows where synonyms are NOT "difficult"</span>
 <span class="va">easy</span> <span class="op">&lt;-</span> <span class="va">new</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">difficult</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>
 
@@ -285,20 +285,20 @@
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">Names</span>, <span class="va">difficult</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># get of any blank name columns</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">synonym</span> <span class="op">!=</span> <span class="st">''</span><span class="op">)</span> </pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">synonym</span> <span class="op">!=</span> <span class="st">''</span><span class="op">)</span> </code></pre></div>
 </div>
 <div id="bind-the-easy-and-difficult-synonym-datasets-to-create-the-final-dataset" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bind-the-easy-and-difficult-synonym-datasets-to-create-the-final-dataset" class="anchor"></a>bind the ‘easy’ and ‘difficult’ synonym datasets to create the final dataset</h1>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">dea_controlled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">synonyms_difficult</span>, <span class="va">synonyms_easy</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dea_controlled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">synonyms_difficult</span>, <span class="va">synonyms_easy</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>synonym <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">synonym</span> <span class="op">==</span> <span class="st">"Soneryl (UK)"</span>, <span class="st">"Soneryl"</span>, <span class="va">synonym</span><span class="op">)</span><span class="op">)</span>  <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"substance"</span> <span class="op">=</span> <span class="va">SUBSTANCE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"number"</span> <span class="op">=</span> <span class="va">Number</span><span class="op">)</span>  <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"schedule"</span> <span class="op">=</span> <span class="va">Schedule</span><span class="op">)</span>  <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"narcotic"</span> <span class="op">=</span> <span class="va">Narcotic</span><span class="op">)</span>  
 
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">dea_controlled</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">dea_controlled</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
@@ -313,7 +313,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Raymond Balise, Layla Bouzoubaa, Gabriel Odom.</p>
+  <p>Developed by Raymond Balise, Layla Bouzoubaa, Gabriel Odom, Nathaniel Castor.</p>
 </div>
 
 <div class="pkgdown">

@@ -21,7 +21,7 @@ install.packages("DOPE")
 
 
 ### Development Release
-Run these two lines of code to install tidyREDCap from GitHub (this requires RTools for Windows or Xcode for Mac to be installed on your computer):
+Run these two lines of code to install DOPE from GitHub (this requires RTools for Windows or Xcode for Mac to be installed on your computer):
 
 ``` r
 if (!requireNamespace("devtools")) install.packages("devtools")
@@ -43,14 +43,22 @@ The lookup funciton supports vectorized lookups:
 ```
 library(DOPE)
 lookup("cheese", "pizza", "with", "a", "soda")
+lookup(c("Buprenorphine", "Tramadol", "Bup/Nx"))
 ```
 
 If your only care about the category and/or class and/or if you serach returns many matches you can use the compress_lookup() function to drop columns and then remove duplicate rorws.
 
 ```
-lookup("cheese", "pizza", "with", "a", "soda") %>% 
+lookup(c("Buprenorphine", "Tramadol", "Bup/Nx")) %>% 
   compress_lookup(compressCategory = FALSE,
                   compressClass = TRUE,
                   compressSynonym = TRUE)
 ```
 
+DOPE now allows for parsing out drug names from a vector which contains free text with the `parse()` function. You can use it in conjuction with`lookup()` and `compress_lookup()`
+
+```
+data(drug_df)
+parse(drug_df$textdrug[1:5]) %>% 
+  lookup()
+```

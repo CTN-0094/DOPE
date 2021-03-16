@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Drug slang from https://www.noslang.com/drugs/dictionary — noslang_street_names • DOPE</title>
+<title>Parse a vector of free text containing drug information — parse • DOPE</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Drug slang from https://www.noslang.com/drugs/dictionary — noslang_street_names" />
-<meta property="og:description" content="A dataset containing a record for a drug slang term and it's description." />
+<meta property="og:title" content="Parse a vector of free text containing drug information — parse" />
+<meta property="og:description" content="This function provides a dataframe of parsed out strings from a
+free text field, input as a vector, specified by the user." />
 
 
 
@@ -133,30 +134,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Drug slang from https://www.noslang.com/drugs/dictionary</h1>
+    <h1>Parse a vector of free text containing drug information</h1>
     
-    <div class="hidden name"><code>noslang_street_names.Rd</code></div>
+    <div class="hidden name"><code>parse.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A dataset containing a record for a drug slang term and it's description.</p>
+    <p>This function provides a dataframe of parsed out strings from a
+free text field, input as a vector, specified by the user.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>noslang_street_names</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>parse</span><span class='op'>(</span><span class='va'>drug_vec</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>drug_vec</th>
+      <td><p>A vector containing the free text to be parsed</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble with 3172 rows and 2 variables:</p><dl>
-<dt>street_name</dt><dd><p>Slang term</p></dd>
-<dt>description</dt><dd><p>Text description of drug term</p></dd>
+    <p>A n x 1 dataframe with class <code>data.frame</code>, <code>tbl_df</code>, <code>tbl</code>.
+The dataframe has 1 variable, "drug"</p>
 
-</dl>
-
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p><a href='https://www.noslang.com/drugs/dictionary'>www.noslang.com</a></p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>parse</span><span class='op'>(</span><span class='va'>drug_vec</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

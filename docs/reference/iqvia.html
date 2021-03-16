@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Drug slang from https://www.noslang.com/drugs/dictionary — noslang_street_names • DOPE</title>
+<title>Data sent from IQVIA — iqvia • DOPE</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Drug slang from https://www.noslang.com/drugs/dictionary — noslang_street_names" />
-<meta property="og:description" content="A dataset containing a record for a drug slang term and it's description." />
+<meta property="og:title" content="Data sent from IQVIA — iqvia" />
+<meta property="og:description" content="A dataset containing a unique record for each the drug names and their classes and categories." />
 
 
 
@@ -133,29 +133,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Drug slang from https://www.noslang.com/drugs/dictionary</h1>
+    <h1>Data sent from IQVIA</h1>
     
-    <div class="hidden name"><code>noslang_street_names.Rd</code></div>
+    <div class="hidden name"><code>iqvia.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A dataset containing a record for a drug slang term and it's description.</p>
+    <p>A dataset containing a unique record for each the drug names and their classes and categories.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>noslang_street_names</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>iqvia</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 3172 rows and 2 variables:</p><dl>
-<dt>street_name</dt><dd><p>Slang term</p></dd>
-<dt>description</dt><dd><p>Text description of drug term</p></dd>
+    <p>A tibble with 125 rows and 3 variables:</p><dl>
+<dt>caegory</dt><dd><p>drug category</p></dd>
+<dt>class</dt><dd><p>the drug class</p></dd>
+<dt>synonym</dt><dd><p>drug name</p></dd>
 
 </dl>
 
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p><a href='https://www.noslang.com/drugs/dictionary'>www.noslang.com</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
