@@ -33,18 +33,21 @@ RoxygenNote: 7.1.1
 Depends: 
     R (>= 2.10)
 Imports: 
-    dplyr
+    dplyr,
+    tidytext,
+    stringr,
+    stats,
+    utils,
+    magrittr
 Suggests: 
     dm,
+    purrr,
     knitr,
     rmarkdown,
     conflicted,
-    purrr,
     readr,
-    readxl,
     rvest,
     sqldf,
-    stringr,
     tidyr,
     tibble,
     testthat,

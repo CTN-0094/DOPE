@@ -74,7 +74,8 @@ Thumbs.db
 www/.vscode/
 inst/doc
 
-inst/extdata/make_test_data.R
+#test code
+inst/extdata/test_parse/make_test_data.R
 
 # Include Necessary Datasets
 !data/dea_brands.rda
@@ -84,3 +85,5 @@ inst/extdata/make_test_data.R
 !data/lookup_df.rda
 !data/noslang_street_names.rda
 !data/noslang_raw.rda
+!data/iqvia.rda
+!data/drug_df.rda
