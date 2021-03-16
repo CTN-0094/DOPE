@@ -53,11 +53,6 @@ test_that("lookup with vector as first argument works", {
   expect_equal(testOut2_df, lookup(test_vector))
 })
 
-output_string <- "Using `drug_vec` argument with other words is not allowed. Please see the examples."
-test_that("lookup vector and args outputs proper error message", {
-  expect_error(lookup(test_vector, "smack"), output_string, ignore.case = TRUE)
-})
-
 ###  Test return of original word  ###
 testOut_df3 <- data.frame(
   original_word = c("zip"),
