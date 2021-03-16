@@ -13,7 +13,7 @@ lookup(
 )
 }
 \arguments{
-\item{drug_vec}{a vector of strings holding possible drug namesYYYYYY}
+\item{drug_vec}{a vector of strings holding possible drug names}
 
 \item{...}{multiple strings holding possible drug names}
 
