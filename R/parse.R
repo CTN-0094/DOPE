@@ -6,8 +6,7 @@
 #'
 #' @param drug_vec A vector containing the free text to be parsed
 #'
-#' @return A n x 1 dataframe with class \code{data.frame}, \code{tbl_df}, \code{tbl}.
-#'   The dataframe has 1 variable, "drug"
+#' @return A n x 1 vector of class \code{character}.
 #' @importFrom utils data
 #' @importFrom stats na.omit
 #' @importFrom magrittr %>%
@@ -79,7 +78,8 @@ parse <- function(drug_vec){
              #gsub("[^A-Za-z ]","",name)
            })
   })
-  clean_names <- dplyr::tibble(drug = clean_names) %>%
+  clean_names <- clean_names %>%
+    unname() %>%
     na.omit()
   clean_names
 

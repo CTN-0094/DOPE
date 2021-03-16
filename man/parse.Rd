@@ -10,8 +10,7 @@ parse(drug_vec)
 \item{drug_vec}{A vector containing the free text to be parsed}
 }
 \value{
-A n x 1 dataframe with class \code{data.frame}, \code{tbl_df}, \code{tbl}.
-The dataframe has 1 variable, "drug"
+A n x 1 vector of class \code{character}.
 }
 \description{
 This function provides a dataframe of parsed out strings from a
