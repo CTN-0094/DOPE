@@ -8,7 +8,7 @@
 #'
 #' @format A tibble with 1734 rows and 3 variables:
 #' \describe{
-#'   \item{class}{DEA drug class}
+#'   \item{category}{DEA drug category}
 #'   \item{brand}{Brand name of drug}
 #'   \item{slang}{slang name}
 #'   }

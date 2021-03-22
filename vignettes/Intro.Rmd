@@ -29,23 +29,23 @@ data(dea_factsheets)
 
 #load("../../data/dea_factsheets.rda")
 
-category <- unique(dea_factsheets$category)
+class <- unique(dea_factsheets$class)
 
-# category
+# class
 
-class <- dea_factsheets %>% 
-  arrange(class) %>% 
-  # filter(class == "steroids") %>% 
-  select(class)
-  
+category <- dea_factsheets %>%
+  arrange(category) %>%
+  # filter(category == "steroids") %>%
+  select(category)
+
 
 #load("../../data/dea_brands.rda")
 
-class2 <- unique(dea_brands$class)
+category2 <- unique(dea_brands$category)
 
-brands <- dea_brands %>% 
-  arrange(class) %>% 
-  #filter(type == "oxycodone") %>% 
+brands <- dea_brands %>%
+  arrange(category) %>%
+  #filter(type == "oxycodone") %>%
   pull(brands)
 
 #load("../../data/dea_controlled.rda")
@@ -54,11 +54,11 @@ brands <- dea_brands %>%
 
 
 #unique(slang$brand)
-#unique(slang$Class)
+#unique(slang$Category)
 
-duplicates <- dea_street_names %>% 
-  group_by(slang) %>% 
-  filter(n() > 1) %>% 
+duplicates <- dea_street_names %>%
+  group_by(slang) %>%
+  filter(n() > 1) %>%
   arrange(slang)
 
 # unique(duplicates)
@@ -67,23 +67,23 @@ duplicates <- dea_street_names %>%
 
 # DEA
 
-This is a summary of the the drugs on the DEA website.  It include drug category (i.e., stimulants, depressants, hallucinogens), classes (i.e.,  amphetamines, cocaine, barbiturates) and drug synonyms. Synonyms include brand/generic names (Adderall®, Vallium®, clonazepam) and street names (Apache, White Girl).  Eventually the ontology needs to be expanded to add a grouping variable for related synonyms.  For example, the generic clonazepam, the brand name Klonopin® and the street name *k-pin* all should be grouped with the general name clonazepam
+This is a summary of the the drugs on the DEA website.  It include drug class (i.e., stimulants, depressants, hallucinogens), categories (i.e.,  amphetamines, cocaine, barbiturates) and drug synonyms. Synonyms include brand/generic names (Adderall®, Vallium®, clonazepam) and street names (Apache, White Girl).  Eventually the ontology needs to be expanded to add a grouping variable for related synonyms.  For example, the generic clonazepam, the brand name Klonopin® and the street name *k-pin* all should be grouped with the general name clonazepam
 
 ## Web Scrape
-Two files, *dea_factsheets.rda* and *dea_brands.rda*, were created by scraping the "fact sheets" on the DEA website on September 10th 2020. The fact had 12 records added because the DEA slang file has additional "classes" (e.g., crack cocaine, mushrooms, PCP, etc.).  These extra "classes" are problematic for the DEA ontology because they also include a specific brand name (i.e., ritalin) and two benzodiazepines (i.e., alprazolam, clonazepam).  Eventually these need to be added as part of a "generic name" level in the ontology.
+Two files, *dea_factsheets.rda* and *dea_brands.rda*, were created by scraping the "fact sheets" on the DEA website on September 10th 2020. The fact had 12 records added because the DEA slang file has additional "categories" (e.g., crack cocaine, mushrooms, PCP, etc.).  These extra "categories" are problematic for the DEA ontology because they also include a specific brand name (i.e., ritalin) and two benzodiazepines (i.e., alprazolam, clonazepam).  Eventually these need to be added as part of a "generic name" level in the ontology.
 
 ### Fact Sheets
 
-+ *dea_factsheets.rda* (N = `r nrow(dea_factsheets)` records) has `r length(category)` drug categories and `r nrow(class)` classes (e.g., `r class$class[1]`, `r class$class[2]`, etc.).  One extra category "benzodiazepine" was added because it is a grouping category in the DEA slang file.
++ *dea_factsheets.rda* (N = `r nrow(dea_factsheets)` records) has `r length(class)` drug classes and `r nrow(category)` categories (e.g., `r category$category[1]`, `r category$category[2]`, etc.).  One extra class "benzodiazepine" was added because it is a grouping class in the DEA slang file.
 
 ```{r}
-sort(category) %>% 
-  knitr::kable(col.names = "Category")
+sort(class) %>%
+  knitr::kable(col.names = "Class")
 ```
 
 ### Drug Brands
 
-+ *dea_brands.rda* (N = `r nrow(dea_brands)` records) has `r length(class2)` drug classes (e.g., `r class2[1:3]`, etc.) and `r length(brands)`  brands (e.g., `r brands[1]`, `r brands[2]`, etc.)
++ *dea_brands.rda* (N = `r nrow(dea_brands)` records) has `r length(category2)` drug categories (e.g., `r category2[1:3]`, etc.) and `r length(brands)`  brands (e.g., `r brands[1]`, `r brands[2]`, etc.)
 
 ## PDFs
 
@@ -91,11 +91,11 @@ Two pdfs, with slang^[https://www.dea.gov/sites/default/files/resource-center/Pu
 
 ### Slang
 
-+ *dea_street_names.rda* (N = `r nrow(dea_street_names)` records) contains `r length(unique(dea_street_names$class))` drug classes and `r length(unique(dea_street_names$brand)) - 1` brands (e.g., `r unique(dea_street_names$brand)[2:4]`). 
++ *dea_street_names.rda* (N = `r nrow(dea_street_names)` records) contains `r length(unique(dea_street_names$category))` drug categories and `r length(unique(dea_street_names$brand)) - 1` brands (e.g., `r unique(dea_street_names$brand)[2:4]`).
 
 
-    + Note Percocet® is here as a class but it is not in the scraped files.  
-    + Several extra classes are in the slang file including: Hydrocodone, Crack Cocaine, Marijana Concentrates, PCP and Promethazine with Codeine. 
+    + Note Percocet® is here as a category but it is not in the scraped files.
+    + Several extra categories are in the slang file including: Hydrocodone, Crack Cocaine, Marijana Concentrates, PCP and Promethazine with Codeine.
     + Discrepancies, relative to the fact sheets, include *psilocybin* listed as *Mushrooms*, *bath salts* listed as *Synthetic Cathinones*, *synthetic marijuana* listed as *Synthetic Cannabinoids*.
     + There are `r nrow(unique(duplicates$slang))` dpulicate terms (e.g., `r unique(duplicates$slang)[1:3]`)
 
@@ -103,7 +103,7 @@ Two pdfs, with slang^[https://www.dea.gov/sites/default/files/resource-center/Pu
 
 + *dea_controlled.rda* (N = `r nrow(dea_controlled)` records) has these variables
     + `substance`: Chemical and/or brand names
-    + `number`: 
+    + `number`:
     + `schedule`: I, II, III, IV or V
     + `narcotic`: Y or N
     + `synonym`: Chemical and/or brand names

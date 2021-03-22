@@ -1,14 +1,14 @@
 
 # dplyr::filter(
 #   lookup_df,
-#   category == "zip" | class == "zip" | synonym == "zip"
+#   class == "zip" | category == "zip" | synonym == "zip"
 # )
 
 ###  Basic Test  ###
 testOut_df <- data.frame(
   original_word = c("zip", "zip", "zip"),
-  category = c("stimulants", "cannabis", "stimulants"),
-  class = c("cocaine", "marijuana", "methamphetamine"),
+  class = c("stimulants", "cannabis", "stimulants"),
+  category = c("cocaine", "marijuana", "methamphetamine"),
   synonym = c("zip", "zip", "zip")
 )
 
@@ -25,18 +25,18 @@ test_that("lookup ignores cases", {
 
 # dplyr::filter(
 #   lookup_df,
-#   category %in% c("zip", "shrooms") |
-#     class %in% c("zip", "shrooms") |
+#   class %in% c("zip", "shrooms") |
+#     category %in% c("zip", "shrooms") |
 #       synonym %in% c("zip", "shrooms")
 # )
 
 ###  Test Dots  ###
 testOut2_df <- data.frame(
   original_word = c("zip", "zip", "zip", "shrooms", "shrooms"),
-  category = c(
+  class = c(
     "stimulants", "cannabis", "stimulants",  "hallucinogen", "hallucinogen"
   ),
-  class = c(
+  category = c(
     "cocaine", "marijuana", "methamphetamine", "mushrooms", "psilocybin"
   ),
   synonym = c("zip", "zip", "zip", "shrooms", "shrooms")
@@ -56,8 +56,8 @@ test_that("lookup with vector as first argument works", {
 ###  Test return of original word  ###
 testOut_df3 <- data.frame(
   original_word = c("zip"),
-  category = c("stimulants", "cannabis", "stimulants"),
-  class = c("cocaine", "marijuana", "methamphetamine"),
+  class = c("stimulants", "cannabis", "stimulants"),
+  category = c("cocaine", "marijuana", "methamphetamine"),
   synonym = c("zip", "zip", "zip")
 )
 

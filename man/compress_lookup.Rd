@@ -6,21 +6,21 @@
 \usage{
 compress_lookup(
   lookupTable,
-  compressCategory = FALSE,
   compressClass = FALSE,
+  compressCategory = FALSE,
   compressSynonym = TRUE,
   sortOutput = FALSE
 )
 }
 \arguments{
-\item{lookupTable}{A lookup table with class \code{data.frame} having three
-columns: drug category, drug class, and drug street name. These tables are
+\item{lookupTable}{A lookup table with category \code{data.frame} having three
+columns: drug class, drug category, and drug street name. These tables are
 returned by the function \code{\link{lookup}}.}
 
-\item{compressCategory}{Should the drug category be collapsed? Defaults to
+\item{compressClass}{Should the drug class be collapsed? Defaults to
 \code{FALSE}.}
 
-\item{compressClass}{Should the drug class be collapsed? Defaults to
+\item{compressCategory}{Should the drug category be collapsed? Defaults to
 \code{FALSE}.}
 
 \item{compressSynonym}{Should the drug synonym / street name be collapsed?
@@ -40,5 +40,5 @@ Given a Drug Lookup table as returned by the function
 \examples{
   longExampleTable <- lookup("dope", "methamphetamine")
   compress_lookup(longExampleTable)
-  compress_lookup(longExampleTable, compressClass = TRUE)
+  compress_lookup(longExampleTable, compressCategory = TRUE)
 }

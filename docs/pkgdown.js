@@ -31,7 +31,7 @@
       }
     }
 
-    // Add class to parent <li>, and enclosing <li> if in dropdown
+    // Add category to parent <li>, and enclosing <li> if in dropdown
     if (pos >= 0) {
       var menu_anchor = $(links[pos]);
       menu_anchor.parent().addClass("active");

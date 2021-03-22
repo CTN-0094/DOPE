@@ -1,4 +1,4 @@
-#' A lookup table with drug category, class, and synonyms
+#' A lookup table with drug class, category, and synonyms
 #'
 #' A dataset containing a record for each drug synonym
 #' @docType data
@@ -7,8 +7,8 @@
 #'
 #' @format A tibble with 4,296 rows and 3 variables:
 #' \describe{
-#'   \item{category}{the drug category}
 #'   \item{class}{the drug class}
+#'   \item{category}{the drug category}
 #'   \item{synonym}{drug synonym}
 #'   }
 "lookup_df"

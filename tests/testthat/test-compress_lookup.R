@@ -1,13 +1,13 @@
 
 # dplyr::filter(
 #   lookup_df,
-#   category == "zip" | class == "zip" | synonym == "zip"
+#   class == "zip" | category == "zip" | synonym == "zip"
 # )
 
 ###  Basic Test  ###
 testOut_df <- data.frame(
-  category = c("stimulants", "stimulants"),
-  class = c("cocaine", "methamphetamine")
+  class = c("stimulants", "stimulants"),
+  category = c("cocaine", "methamphetamine")
 )
 testLookup_df <- lookup("cocaine", "methamphetamine")
 
@@ -17,13 +17,13 @@ test_that("basic lookup compression works", {
 
 ###  Test Second Compression  ###
 testOut_df <- data.frame(
-  category = "stimulants"
+  class = "stimulants"
 )
 
-test_that("lookup compression for class works", {
+test_that("lookup compression for category works", {
   expect_equal(
     testOut_df,
-    compress_lookup(testLookup_df, compressClass = TRUE)
+    compress_lookup(testLookup_df, compressCategory = TRUE)
   )
 })
 
@@ -32,10 +32,10 @@ test_that("lookup compression for class works", {
 rayExample <- lookup("cheese", "pizza", "with", "a", "soda")
 
 ray_df <- data.frame(
-  category = c(
+  class = c(
     "stimulants", "heroin", "hallucinogen", "cannabis", "stimulants"
   ),
-  class = c("cocaine", "heroin", "lsd", "marijuana", "methamphetamine")
+  category = c("cocaine", "heroin", "lsd", "marijuana", "methamphetamine")
 )
 
 test_that("compressing Ray's example works", {
@@ -44,10 +44,10 @@ test_that("compressing Ray's example works", {
 
 
 raySorted_df <- data.frame(
-  category = c(
+  class = c(
     "cannabis", "hallucinogen", "heroin", "stimulants", "stimulants"
   ),
-  class = c("marijuana", "lsd", "heroin", "cocaine", "methamphetamine")
+  category = c("marijuana", "lsd", "heroin", "cocaine", "methamphetamine")
 )
 
 test_that("compressing Ray's example works", {
