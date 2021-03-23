@@ -33,7 +33,7 @@ The dea brands file has:
 
 + mixed case
 + registered trademark symbols
-+ The drugs *kadian* is together with *ms cotlin* as a single record
++ The drugs *kadian* is together with *ms contin* as a single record
 
 ```{r}
 dea_brands <- DOPE::dea_brands %>%
@@ -42,7 +42,7 @@ dea_brands <- DOPE::dea_brands %>%
   mutate(brand = str_remove_all(brand, "®")) %>%
   mutate(brand = case_when(brand == "kadianms-contin" ~ "kadian", # two names
                            TRUE ~ brand)) %>%
-  bind_rows(c(class = "morphine", brand = "ms contin"))
+  bind_rows(c(category = "morphine", brand = "ms contin"))
 ```
 
 ## Fix DEA category and class
@@ -68,13 +68,13 @@ These two do not fit well
 ```{r}
 dea_class_cat <- DOPE::dea_factsheets %>%
   mutate(across(where(is.character), tolower)) %>%
-  mutate(class =
-           case_when(class == "peyote and mescaline" ~ "mescaline",
-                     class == "ghb - gamma-hydroxybutyric acid" ~ "ghb",
-                     class == "ecstasy or mdma (also known as molly)" ~ "mdma",
-                     class == "flakka (alpha-pvp)" ~ "flakka",
+  mutate(category =
+           case_when(category == "peyote and mescaline" ~ "mescaline",
+                     category == "ghb - gamma-hydroxybutyric acid" ~ "ghb",
+                     category == "ecstasy or mdma (also known as molly)" ~ "mdma",
+                     category == "flakka (alpha-pvp)" ~ "flakka",
 
-                     TRUE ~ class))
+                     TRUE ~ category))
 
 ```
 
@@ -88,9 +88,9 @@ dea_class_cat <- DOPE::dea_factsheets %>%
 ```{r}
 dea_street_names <- DOPE::dea_street_names %>%
   mutate(across(where(is.character), tolower)) %>%
-  mutate(class =
-           case_when(class == "fentanyl and fentanyl derivatives"	~ "fentanyl",
-                     TRUE ~ class))
+  mutate(category =
+           case_when(category == "fentanyl and fentanyl derivatives"	~ "fentanyl",
+                     TRUE ~ category))
 
 ```
 
@@ -100,7 +100,7 @@ dea_street_names <- DOPE::dea_street_names %>%
 
 # DEA website (in slang)
 missing <- tribble(
-  ~class, ~category, ~fact_path,
+  ~category, ~class, ~fact_path,
   "acetaminophen and oxycodone", "narcotics (opioids)", "DEA slang",
   "alprazolam", "benzodiazepine", "DEA slang" ,
   "clonazepam", "benzodiazepine", "DEA slang"  ,
@@ -116,7 +116,7 @@ missing <- tribble(
 
 # extras from NoSlang
 extraNewSlang <- tribble(
-  ~class,  ~category, ~fact_path,
+  ~category,  ~class, ~fact_path,
   "2cb", "hallucinogen", "noSlang Term",
   "alpha-ethyltryptamine", "hallucinogen", "noSlang Term",
   "alpha-methyltryptamine", "hallucinogen", "noSlang Term",
@@ -137,26 +137,26 @@ extraNewSlang <- tribble(
 
 
 ```{r}
-classes <- data.frame(allClass = c(dea_brands$class,
-                                   dea_street_names$class,
-                                   dea_class_cat$class,
-                                   missing$class,
-                                   extraNewSlang$class)) %>%
+categories <- data.frame(allCat = c(dea_brands$category,
+                                   dea_street_names$category,
+                                   dea_class_cat$category,
+                                   missing$category,
+                                   extraNewSlang$category)) %>%
   distinct() %>%
-  arrange(allClass)
+  arrange()
 ```
 
 ```{r}
 library(sqldf)
-lookup_df <- sqldf("select cc.category, a.class, a.syn synonym from
-                (select b.class, b.brand as syn from dea_brands as b
+lookup_df <- sqldf("select cc.class, a.category, a.syn synonym from
+                (select b.category, b.brand as syn from dea_brands as b
                  union
-                 select s1.class, s1.slang as syn from dea_street_names as s1
+                 select s1.category, s1.slang as syn from dea_street_names as s1
                  union
-                 select s2.class, s2.brand as syn from dea_street_names as s2 where s2.brand <> NULL
+                 select s2.category, s2.brand as syn from dea_street_names as s2 where s2.brand <> NULL
                  union
                  select ns.drug, ns.street_name as syn from noslang_street_names as ns) as a
-              left join dea_class_cat as cc on a.class = cc.class")
+              left join dea_class_cat as cc on a.category = cc.category")
 
 use_data(lookup_df, overwrite = TRUE)
 ```

@@ -76,8 +76,8 @@ get_drug_factsheets <- function(pg_num){
     html_nodes(".teaser-title--drug_fact_sheet a") %>%
     html_attr("href")
   #return 1x2 tibble
-  tibble("category" = category,
-         "class" = class,
+  tibble("class" = class,
+         "category" = category,
          "fact_path" = path
          )
 }
@@ -92,7 +92,7 @@ This information gets us the drug's category, class and path. We will use the `p
 
 # function to pull the data - specifically the brand names of each of
 #   the drug types from their factsheets
-get_brand <- function(drug_path, drug_class){
+get_brand <- function(drug_path, drug_category){
   drug_brands <- read_html(paste0("https://www.dea.gov", drug_path)) %>%
     html_nodes(".field--what") %>%  # name of the div with the brand names
     html_text() %>%
@@ -100,7 +100,7 @@ get_brand <- function(drug_path, drug_class){
     str_split(" ", simplify = TRUE) %>%  # split the vector into individual strings
     .[str_detect(., "®")] %>%  # find the strings that include the registered trademark symbol and subset
     str_remove_all(., "[,|.]")  # remove extra characters
-  tibble("category" = drug_class,
+  tibble("category" = drug_category,
          "brands" = drug_brands)
 }
 
