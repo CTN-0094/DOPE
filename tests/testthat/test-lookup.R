@@ -1,9 +1,3 @@
-
-# dplyr::filter(
-#   lookup_df,
-#   class == "zip" | category == "zip" | synonym == "zip"
-# )
-
 ###  Basic Test  ###
 testOut_df <- data.frame(
   original_word = c("zip", "zip", "zip"),
@@ -12,6 +6,7 @@ testOut_df <- data.frame(
   synonym = c("zip", "zip", "zip")
 )
 
+print(lookup("zip"))
 test_that("basic lookup works", {
   expect_equal(testOut_df, lookup("zip"))
 })
@@ -22,13 +17,6 @@ test_that("lookup ignores cases", {
   expect_equal(testOut_df, lookup("Zip"))
 })
 
-
-# dplyr::filter(
-#   lookup_df,
-#   class %in% c("zip", "shrooms") |
-#     category %in% c("zip", "shrooms") |
-#       synonym %in% c("zip", "shrooms")
-# )
 
 ###  Test Dots  ###
 testOut2_df <- data.frame(
