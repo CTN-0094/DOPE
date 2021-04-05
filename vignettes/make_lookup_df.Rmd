@@ -158,6 +158,37 @@ lookup_df <- sqldf("select cc.class, a.category, a.syn synonym from
                  select ns.drug, ns.street_name as syn from noslang_street_names as ns) as a
               left join dea_class_cat as cc on a.category = cc.category")
 
+#use_data(lookup_df, overwrite = TRUE)
+```
+
+Several records do not have a class. 
+
+```{r fix_missing_class, echo=FALSE}
+na_lookup <- filter(lookup_df, is.na(class))
+length(unique(na_lookup$category)) # 30 unique categories with no class
+# *am = depressants
+# *mine = hallucinogen as per DAN 3/29/21
+# *2cb = hallucinogen
+# *amt = hallucinogen 
+# *trite = depressants
+# *deine = narcotics (opioids)
+# crack = stimulants
+
+lookup_df2 <- lookup_df %>% 
+  mutate(class = case_when(str_detect(category, "(?=.*am$)|(?=.*trite$)|(gbl)|(?=.*qualone$)||(?=.*ital$)") == TRUE ~ "depressants",
+                           str_detect(category, "crack|(?=.*cathin)|(?=.*date$)|(ritalin)") == TRUE ~ "stimulants",
+                           str_detect(category, "(?=.*amt$)|(?=.*2cb$)|(?=.*mine$)|(dmt)|(?=.*room)|(pcp)|(peyote)") == TRUE ~ "hallucinogen",
+                           str_detect(category, "(?=.*deine$)|(?=.*one$)") == TRUE ~ "narcotics (opioids)",
+                           str_detect(category, "(?=.*marijuana)|(?=.*cannab)") == TRUE ~ "cannabis",
+                           category == "dextromethorphan" ~ "antitussives",
+                           category == "nitrous oxide" ~ "inhalant",
+                           TRUE ~ class
+         )
+)
+
+#check missing again
+na_lookup <- filter(lookup_df2, is.na(class))
+lookup_df <- lookup_df2
 use_data(lookup_df, overwrite = TRUE)
 ```
 
