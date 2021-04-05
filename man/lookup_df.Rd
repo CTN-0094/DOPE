@@ -3,12 +3,12 @@
 \docType{data}
 \name{lookup_df}
 \alias{lookup_df}
-\title{A lookup table with drug category, class, and synonyms}
+\title{A lookup table with drug class, category, and synonyms}
 \format{
 A tibble with 4,296 rows and 3 variables:
 \describe{
-\item{category}{the drug category}
 \item{class}{the drug class}
+\item{category}{the drug category}
 \item{synonym}{drug synonym}
 }
 }

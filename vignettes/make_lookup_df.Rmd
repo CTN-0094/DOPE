@@ -25,15 +25,15 @@ library(stringr)
 library(usethis)
 ```
 
-The lookup table has information on drug category, class and synonyms.  It is made from the DEA and "No Slang" tables. The core of the table is the dea_factsheets table.  It is tweaked to simplify complex names 
+The lookup table has information on drug category, class and synonyms.  It is made from the DEA and "No Slang" tables. The core of the table is the dea_factsheets table.  It is tweaked to simplify complex names
 
 ## Fix dea_brands
 
 The dea brands file has:
 
 + mixed case
-+ registered trademark symbols 
-+ The drugs *kadian* is together with *ms cotlin* as a single record
++ registered trademark symbols
++ The drugs *kadian* is together with *ms contin* as a single record
 
 ```{r}
 dea_brands <- DOPE::dea_brands %>%
@@ -42,7 +42,7 @@ dea_brands <- DOPE::dea_brands %>%
   mutate(brand = str_remove_all(brand, "®")) %>%
   mutate(brand = case_when(brand == "kadianms-contin" ~ "kadian", # two names
                            TRUE ~ brand)) %>%
-  bind_rows(c(class = "morphine", brand = "ms contin"))
+  bind_rows(c(category = "morphine", brand = "ms contin"))
 ```
 
 ## Fix DEA category and class
@@ -52,29 +52,29 @@ The fact sheet file has:
 + mixed case
 + ghb listed with a complex name
     + gamma-hydroxybutyric acid should appear as ghb in all "class" variables
-+ Mdma listed with 3 names 
++ Mdma listed with 3 names
     + ecstacy, molly and mdma should be appear as mdma in all "class" variables
 + peyote and mescalin grouped together
     + peyote and mescalin should appear as mescalin in all "class" variables
 + flakka is listed with a complex name
     + flakka should appear as flakka in all "class" variables
-    
-These two do not fit well    
+
+These two do not fit well
 
 +	spice/ k2, synthetic marijuana
-+	acetaminophen and oxycodone	
-	
++	acetaminophen and oxycodone
+
 
 ```{r}
 dea_class_cat <- DOPE::dea_factsheets %>%
   mutate(across(where(is.character), tolower)) %>%
-  mutate(class =
-           case_when(class == "peyote and mescaline" ~ "mescaline", 
-                     class == "ghb - gamma-hydroxybutyric acid" ~ "ghb",
-                     class == "ecstasy or mdma (also known as molly)" ~ "mdma",
-                     class == "flakka (alpha-pvp)" ~ "flakka",
-                     	
-                     TRUE ~ class))
+  mutate(category =
+           case_when(category == "peyote and mescaline" ~ "mescaline",
+                     category == "ghb - gamma-hydroxybutyric acid" ~ "ghb",
+                     category == "ecstasy or mdma (also known as molly)" ~ "mdma",
+                     category == "flakka (alpha-pvp)" ~ "flakka",
+
+                     TRUE ~ category))
 
 ```
 
@@ -88,19 +88,19 @@ dea_class_cat <- DOPE::dea_factsheets %>%
 ```{r}
 dea_street_names <- DOPE::dea_street_names %>%
   mutate(across(where(is.character), tolower)) %>%
-  mutate(class =
-           case_when(class == "fentanyl and fentanyl derivatives"	~ "fentanyl",
-                     TRUE ~ class))
+  mutate(category =
+           case_when(category == "fentanyl and fentanyl derivatives"	~ "fentanyl",
+                     TRUE ~ category))
 
 ```
 
 
 ```{r}
-# the these drugs do not have fact sheets but they appear on the DEA 
+# the these drugs do not have fact sheets but they appear on the DEA
 
 # DEA website (in slang)
 missing <- tribble(
-  ~class, ~category, ~fact_path,
+  ~category, ~class, ~fact_path,
   "acetaminophen and oxycodone", "narcotics (opioids)", "DEA slang",
   "alprazolam", "benzodiazepine", "DEA slang" ,
   "clonazepam", "benzodiazepine", "DEA slang"  ,
@@ -112,11 +112,11 @@ missing <- tribble(
   "promethazine with codeine", "narcotics (opioids)", "DEA slang",
   "ritalin", "stimulants", "DEA slang",
   "synthetic cannabinoids", "designer drugs", "DEA slang",
-  "synthetic cathinones", "stimulants", "DEA slang") 
+  "synthetic cathinones", "stimulants", "DEA slang")
 
 # extras from NoSlang
 extraNewSlang <- tribble(
-  ~class,  ~category, ~fact_path,
+  ~category,  ~class, ~fact_path,
   "2cb", "hallucinogen", "noSlang Term",
   "alpha-ethyltryptamine", "hallucinogen", "noSlang Term",
   "alpha-methyltryptamine", "hallucinogen", "noSlang Term",
@@ -137,27 +137,58 @@ extraNewSlang <- tribble(
 
 
 ```{r}
-classes <- data.frame(allClass = c(dea_brands$class,
-                                   dea_street_names$class,
-                                   dea_class_cat$class,
-                                   missing$class,
-                                   extraNewSlang$class)) %>%
+categories <- data.frame(allCat = c(dea_brands$category,
+                                   dea_street_names$category,
+                                   dea_class_cat$category,
+                                   missing$category,
+                                   extraNewSlang$category)) %>%
   distinct() %>%
-  arrange(allClass)
+  arrange()
 ```
 
 ```{r}
 library(sqldf)
-lookup_df <- sqldf("select cc.category, a.class, a.syn synonym from
-                (select b.class, b.brand as syn from dea_brands as b
+lookup_df <- sqldf("select cc.class, a.category, a.syn synonym from
+                (select b.category, b.brand as syn from dea_brands as b
                  union
-                 select s1.class, s1.slang as syn from dea_street_names as s1
+                 select s1.category, s1.slang as syn from dea_street_names as s1
                  union
-                 select s2.class, s2.brand as syn from dea_street_names as s2 where s2.brand <> NULL
+                 select s2.category, s2.brand as syn from dea_street_names as s2 where s2.brand <> NULL
                  union
                  select ns.drug, ns.street_name as syn from noslang_street_names as ns) as a
-              left join dea_class_cat as cc on a.class = cc.class")
+              left join dea_class_cat as cc on a.category = cc.category")
 
+#use_data(lookup_df, overwrite = TRUE)
+```
+
+Several records do not have a class. 
+
+```{r fix_missing_class, echo=FALSE}
+na_lookup <- filter(lookup_df, is.na(class))
+length(unique(na_lookup$category)) # 30 unique categories with no class
+# *am = depressants
+# *mine = hallucinogen as per DAN 3/29/21
+# *2cb = hallucinogen
+# *amt = hallucinogen 
+# *trite = depressants
+# *deine = narcotics (opioids)
+# crack = stimulants
+
+lookup_df2 <- lookup_df %>% 
+  mutate(class = case_when(str_detect(category, "(?=.*am$)|(?=.*trite$)|(gbl)|(?=.*qualone$)||(?=.*ital$)") == TRUE ~ "depressants",
+                           str_detect(category, "crack|(?=.*cathin)|(?=.*date$)|(ritalin)") == TRUE ~ "stimulants",
+                           str_detect(category, "(?=.*amt$)|(?=.*2cb$)|(?=.*mine$)|(dmt)|(?=.*room)|(pcp)|(peyote)") == TRUE ~ "hallucinogen",
+                           str_detect(category, "(?=.*deine$)|(?=.*one$)") == TRUE ~ "narcotics (opioids)",
+                           str_detect(category, "(?=.*marijuana)|(?=.*cannab)") == TRUE ~ "cannabis",
+                           category == "dextromethorphan" ~ "antitussives",
+                           category == "nitrous oxide" ~ "inhalant",
+                           TRUE ~ class
+         )
+)
+
+#check missing again
+na_lookup <- filter(lookup_df2, is.na(class))
+lookup_df <- lookup_df2
 use_data(lookup_df, overwrite = TRUE)
 ```
 

@@ -36,27 +36,27 @@ Used Format: Convert Line Terminator to Wrap
 
 + Added ~ as separator
 + Added ~ to make brand column
-+ Removed ® 
++ Removed ®
 + Removed () around generic name
 + Moved brand to brand column
 
 ```{r}
 library(readr)  # read_delm
 
-s <- read_delim("../inst/extdata/slangUE.txt", "~", escape_double = FALSE, 
-                col_names = c("class", "brand", "slang"), 
+s <- read_delim("../inst/extdata/slangUE.txt", "~", escape_double = FALSE,
+                col_names = c("category", "brand", "slang"),
                 col_types = cols(
-                  class = col_character(),
+                  category = col_character(),
                   brand = col_character(),
                   slang = col_character()),
                   trim_ws = TRUE)
 
 library(tidyr)  # for separate_rows()
 library(stringr)  #str_squish
-suppressPackageStartupMessages(library(dplyr))  # mutate  %>% 
+suppressPackageStartupMessages(library(dplyr))  # mutate  %>%
 
-dea_street_names <- separate_rows(s, slang, sep = ";") %>% 
-  mutate(slang = str_squish(slang)) %>% 
+dea_street_names <- separate_rows(s, slang, sep = ";") %>%
+  mutate(slang = str_squish(slang)) %>%
   distinct() # Blaze listed twice in Synthetic Cannabinoids
 
 ```

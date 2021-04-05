@@ -4,12 +4,12 @@
 #' @description Given a Drug Lookup table as returned by the function
 #'   \code{\link{lookup}}, collapse rows from unwanted columns
 #'
-#' @param lookupTable A lookup table with class \code{data.frame} having three
-#'   columns: drug category, drug class, and drug street name. These tables are
+#' @param lookupTable A lookup table with category \code{data.frame} having three
+#'   columns: drug class, drug category, and drug street name. These tables are
 #'   returned by the function \code{\link{lookup}}.
-#' @param compressCategory Should the drug category be collapsed? Defaults to
-#'   \code{FALSE}.
 #' @param compressClass Should the drug class be collapsed? Defaults to
+#'   \code{FALSE}.
+#' @param compressCategory Should the drug category be collapsed? Defaults to
 #'   \code{FALSE}.
 #' @param compressSynonym Should the drug synonym / street name be collapsed?
 #'   Defaults to \code{TRUE}.
@@ -24,16 +24,16 @@
 #' @examples
 #'   longExampleTable <- lookup("dope", "methamphetamine")
 #'   compress_lookup(longExampleTable)
-#'   compress_lookup(longExampleTable, compressClass = TRUE)
+#'   compress_lookup(longExampleTable, compressCategory = TRUE)
 
 compress_lookup <- function(lookupTable,
-                            compressCategory = FALSE,
                             compressClass = FALSE,
+                            compressCategory = FALSE,
                             compressSynonym = TRUE,
                             sortOutput = FALSE) {
   # browser()
 
-  colsToKeep_lgl <- !c(compressCategory, compressClass, compressSynonym)
+  colsToKeep_lgl <- !c(compressClass, compressCategory, compressSynonym)
   collapsed_df <- unique(
     lookupTable[, colsToKeep_lgl, drop = FALSE]
   )

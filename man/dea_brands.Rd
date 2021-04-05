@@ -7,7 +7,7 @@
 \format{
 A tibble with 28 rows and 2 variables:
 \describe{
-\item{class}{the drug class}
+\item{category}{the drug category}
 \item{brands}{Drug brand name}
 }
 }
@@ -15,6 +15,6 @@ A tibble with 28 rows and 2 variables:
 data(dea_brands)
 }
 \description{
-A dataset containing a unique record for each the drug classes and their respective brand names.
+A dataset containing a unique record for each the drug categories and their respective brand names.
 }
 \keyword{datasets}
