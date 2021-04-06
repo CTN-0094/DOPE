@@ -175,7 +175,7 @@ length(unique(na_lookup$category)) # 30 unique categories with no class
 # crack = stimulants
 
 lookup_df2 <- lookup_df %>% 
-  mutate(class = case_when(str_detect(category, "(?=.*am$)|(?=.*trite$)|(gbl)|(?=.*qualone$)||(?=.*ital$)") == TRUE ~ "depressants",
+  mutate(class = case_when(str_detect(category, "(?=.*am$)|(?=.*trite$)|(gbl)|(?=.*qualone$)|(?=.*ital$)") == TRUE ~ "depressants",
                            str_detect(category, "crack|(?=.*cathin)|(?=.*date$)|(ritalin)") == TRUE ~ "stimulants",
                            str_detect(category, "(?=.*amt$)|(?=.*2cb$)|(?=.*mine$)|(dmt)|(?=.*room)|(pcp)|(peyote)") == TRUE ~ "hallucinogen",
                            str_detect(category, "(?=.*deine$)|(?=.*one$)") == TRUE ~ "narcotics (opioids)",
@@ -183,8 +183,8 @@ lookup_df2 <- lookup_df %>%
                            category == "dextromethorphan" ~ "antitussives",
                            category == "nitrous oxide" ~ "inhalant",
                            TRUE ~ class
-         )
-)
+  )
+  )
 
 #check missing again
 na_lookup <- filter(lookup_df2, is.na(class))
@@ -201,6 +201,24 @@ iqvia <- DOPE::iqvia %>%
 lookup_df <- DOPE::lookup_df %>% 
   bind_rows(iqvia)
 
+
+```
+
+Fix pluralization
+
+```{r}
+# get classes & categories
+unique(lookup_df$class)
+unique(lookup_df$category)
+
+lookup_df3 <- lookup_df %>% 
+  mutate(class = if_else(class != "cannabis", str_replace(class, "s$", ""), class),
+         class = case_when(class == "narcotics (opioids)" ~ "narcotic (opioid)",
+                           TRUE ~ class),
+         category = if_else(class != "mushrooms", str_replace(category, "s$", ""), category)
+         )
+
+lookup_df <- lookup_df3
 use_data(lookup_df, overwrite = TRUE)
 ```
 
