@@ -1,7 +1,7 @@
 ###  Basic Test  ###
 testOut_df <- data.frame(
   original_word = c("zip", "zip", "zip"),
-  class = c("stimulants", "cannabis", "stimulants"),
+  class = c("stimulant", "cannabis", "stimulant"),
   category = c("cocaine", "marijuana", "methamphetamine"),
   synonym = c("zip", "zip", "zip")
 )
@@ -22,7 +22,7 @@ test_that("lookup ignores cases", {
 testOut2_df <- data.frame(
   original_word = c("zip", "zip", "zip", "shrooms", "shrooms"),
   class = c(
-    "stimulants", "cannabis", "stimulants",  "hallucinogen", "hallucinogen"
+    "stimulant", "cannabis", "stimulant",  "hallucinogen", "hallucinogen"
   ),
   category = c(
     "cocaine", "marijuana", "methamphetamine", "mushrooms", "psilocybin"
@@ -44,7 +44,7 @@ test_that("lookup with vector as first argument works", {
 ###  Test return of original word  ###
 testOut_df3 <- data.frame(
   original_word = c("zip"),
-  class = c("stimulants", "cannabis", "stimulants"),
+  class = c("stimulant", "cannabis", "stimulant"),
   category = c("cocaine", "marijuana", "methamphetamine"),
   synonym = c("zip", "zip", "zip")
 )

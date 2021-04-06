@@ -6,7 +6,7 @@
 
 ###  Basic Test  ###
 testOut_df <- data.frame(
-  class = c("stimulants", "stimulants"),
+  class = c("stimulant", "stimulant"),
   category = c("cocaine", "methamphetamine")
 )
 testLookup_df <- lookup("cocaine", "methamphetamine")
