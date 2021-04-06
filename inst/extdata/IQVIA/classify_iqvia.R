@@ -44,9 +44,9 @@ everything <- tibble(what = unique(c(CCNI$what, DD$what, MOI$what, MONI$what, OR
 # write_rds(everything, here::here("inst/extdata/IQVIA/iqvia_raw.rds"))
 
 # parse() on iqvia data---------------------------------------------------------
-iqvia <- read_rds("inst/extdata/IQVIA/iqvia.rds")
+iqvia <- read_rds("inst/extdata/IQVIA/iqvia_raw.rds")
 
-parse_iqvia <- parse(iqvia$what)
+parse_iqvia <- DOPE::parse(iqvia$what)
 
 fill_lookup <- function(x){
   #browser()
@@ -56,8 +56,8 @@ fill_lookup <- function(x){
               "roxybond", "trezix", "vicodin", "vicoprofen", "xtampza",
               "zohydro", "xodol")){
 
-     df <- tibble(category = "narcotics (opioids)",
-           class = "codeine combinations, non-injectable",
+     df <- tibble(class = "narcotics (opioids)",
+           category = "codeine combinations, non-injectable",
            synonym = x)
   }
   else if(x %in% c("acamprosate",  "antabuse",
@@ -67,62 +67,62 @@ fill_lookup <- function(x){
               "naltrexone",    "probuphine" ,
               "sublocade",     "suboxone",
               "vivitrol",      "zubsolv")){
-    df <- tibble(category = "treatment drug",
-           class = "treatment drug",
+    df <- tibble(class = "treatment drug",
+           category = "treatment drug",
            synonym = x)
   }
   else if(x %in% c("apap", "fiorinal", "ascomp", "butalb", "asa", "ibuprofen",
               "fioricet", "tylenol", "ibuprof")){
-    df <- tibble(category = "analgesic",
-           class = "pain relief",
+    df <- tibble(class = "analgesic",
+           category = "pain relief",
            synonym = x)
   }
   else if(x %in% c("dilaudid", "fentanyl", "hydromorphone", "infumorph", "morphine",
               "nalbuphine")){
-    df <- tibble(category = "narcotics (opioids)",
-           class = "morphine-opium, injectable",
+    df <- tibble(class = "narcotics (opioids)",
+           category = "morphine-opium, injectable",
            synonym = x)
   }
   else if(x %in% c("abstral", "actiq", "arymo", "belbuca", "duragesic",
               "embeda", "exalgo","fentora","kadian","lazanda","morphabond",
               "opana", "opium","oxymorphone","subsys", "ms")){
-    df <- tibble(category = "narcotics (opioids)",
-           class = "morphine-opium, non-injectable",
+    df <- tibble(class = "narcotics (opioids)",
+           category = "morphine-opium, non-injectable",
            synonym = x)
   }
   else if(x %in% c("evzio", "naloxone", "narcan")){
-    df <- tibble(category = "reversal agent",
-           class = "reversal agent",
+    df <- tibble(class = "reversal agent",
+           category = "reversal agent",
            synonym = x)
   }
   else if(x %in% c("butorphanol", "demerol", "meperidine", "methadone")){
-    df <- tibble(category = "narcotics (opioids)",
-           class = "synthetic narcotic, injectable",
+    df <- tibble(class = "narcotics (opioids)",
+           category = "synthetic narcotic, injectable",
            synonym = x)
   }
   else if(x %in% c("conzip", "dolophine", "levorphanol", "methadose",
               "nucynta", "pentazocine", "naloxo", "tramadol", "ultracet",
               "ultram")){
-    df <- tibble(category = "narcotics (opioids)",
-           class = "synthetic narcotic, non-injectable",
+    df <- tibble(class = "narcotics (opioids)",
+           category = "synthetic narcotic, non-injectable",
            synonym = x)
   }
   else if(x %in% c("caf")){
-    df <- tibble(category = "diuretic",
-                 class = "caffeine",
+    df <- tibble(class = "diuretic",
+                 category = "caffeine",
                  synonym = x)
   }else{
-    df <- tibble(category = "WHAT",
-                 class = "WHAT",
+    df <- tibble(class = "WHAT",
+                 category = "WHAT",
                  synonym = x)
   }
 
   df
 }
 
-drug_vec <- parse_iqvia$drug %>%
-  unname()
+# drug_vec <- parse_iqvia$drug %>%
+#   unname()
 
-iqvia <- map_dfr(drug_vec, fill_lookup)
+iqvia <- map_dfr(parse_iqvia, fill_lookup)
 
-usethis::use_data(iqvia)
+usethis::use_data(iqvia, overwrite = TRUE)

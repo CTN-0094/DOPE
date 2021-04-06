@@ -189,6 +189,18 @@ lookup_df2 <- lookup_df %>%
 #check missing again
 na_lookup <- filter(lookup_df2, is.na(class))
 lookup_df <- lookup_df2
+
+```
+
+Add data from IQVIA
+
+```{r}
+iqvia <- DOPE::iqvia %>%
+  mutate(across(where(is.character), tolower)) 
+
+lookup_df <- DOPE::lookup_df %>% 
+  bind_rows(iqvia)
+
 use_data(lookup_df, overwrite = TRUE)
 ```
 
