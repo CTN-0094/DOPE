@@ -176,7 +176,7 @@ length(unique(na_lookup$category)) # 30 unique categories with no class
 
 lookup_df2 <- lookup_df %>% 
   mutate(class = case_when(str_detect(category, "(?=.*am$)|(?=.*trite$)|(gbl)|(?=.*qualone$)|(?=.*ital$)") == TRUE ~ "depressants",
-                           str_detect(category, "crack|(?=.*cathin)|(?=.*date$)|(ritalin)") == TRUE ~ "stimulants",
+                           str_detect(category, "crack|(?=.*cathin)|(?=.*date$)|(ritalin)|(?=.*phetamine$)") == TRUE ~ "stimulants",
                            str_detect(category, "(?=.*amt$)|(?=.*2cb$)|(?=.*mine$)|(dmt)|(?=.*room)|(pcp)|(peyote)") == TRUE ~ "hallucinogen",
                            str_detect(category, "(?=.*deine$)|(?=.*one$)") == TRUE ~ "narcotics (opioids)",
                            str_detect(category, "(?=.*marijuana)|(?=.*cannab)") == TRUE ~ "cannabis",
@@ -215,7 +215,7 @@ lookup_df3 <- lookup_df %>%
   mutate(class = if_else(class != "cannabis", str_replace(class, "s$", ""), class),
          class = case_when(class == "narcotics (opioids)" ~ "narcotic (opioid)",
                            TRUE ~ class),
-         category = if_else(class != "mushrooms", str_replace(category, "s$", ""), category)
+         category = if_else(category != "mushrooms", str_replace(category, "s$", ""), category)
          )
 
 lookup_df <- lookup_df3
