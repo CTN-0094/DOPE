@@ -13,24 +13,19 @@
 #' @examples
 #'   lookup("zip")
 
-lookup <- function(drug_vec = NULL, ...,
-                   searchClass = TRUE,
-                   searchCategory = TRUE,
-                   searchSynonym = TRUE) {
+lookup_syn <- function(drug_name) {
 
-  thingy <- c(drug_vec, as.character(list(...)))
-  thingy_char <- vapply(
-    X = as.character(thingy),
-    FUN = tolower,
-    FUN.VALUE = character(1),
-    USE.NAMES = FALSE)
+  # Make sure drug_name is a string
+  if (is.string(drug_name)){
+    drug_name <- tolower(drug_name)
+  } else {
+    stop("drug_name should be a string of one drug name")
+  }
 
   # lookup individual words
-
-  answer <- purrr::map_df(thingy_char, .lookup,
-                          searchClass,
-                          searchCategory,
-                          searchSynonym)
+  match <- lookup(drug_name, searchClass=FALSE,
+                          searchCategory=FALSE,
+                          searchSynonym=TRUE)
 
   row.names(answer) <- NULL
   answer
