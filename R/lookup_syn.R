@@ -6,8 +6,8 @@ library(tidyverse)
 #'
 #' @param drug_name a string of a single drug name.
 #'
-#' @return A lookup table with category \code{data.frame} having four columns:
-#'   original search term, drug class, drug category, and synonym name.
+#' @return A lookup table with category \code{data.frame} having three columns:
+#'   drug class, drug category match, and synonym name.
 #' @export
 #'
 #' @examples
