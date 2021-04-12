@@ -29,22 +29,15 @@ lookup_syn <- function(drug_name) {
 
   if (length(match$category) == 1){
     answer <- lookup(match$category, searchSynonym = FALSE)
+    answer <- answer %>%
+      rename("category_match" = category) %>%
+      select(-original_word)
   } else {
-    print("your search matched multiple categories.")
-    print("if you know which category you'd like to search select one below or choose all")
-    categories <- match[!duplicated(match[,c('category')]),]
-    print(categories)
-    user_input <- readline(prompt="Enter row number of your match or 0 to search all: ")
-    if (user_input == 0){
-      answer = lookup(match$category, searchSynonym = FALSE)
-    } else {
-      answer = lookup(match[user_input,'category'], searchSynonym = FALSE)
-    }
+    print("Your search matched multiple categories. Please choose one and refine your search")
+    answer <- match
+    answer <- answer %>%
+      rename("match" = synonym)
   }
-
-  answer <- answer %>%
-    rename("category_match" = category) %>%
-    select(-original_word)
   answer
 }
 
