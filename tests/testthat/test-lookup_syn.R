@@ -10,7 +10,7 @@ test_that("multiple category match works", {
   expect_equal(testOut_df, lookup_syn("zip"))
 })
 
-
+### Test for single category match ###
 testOut_df2 <- data.frame(
   class = rep(c("cannabis"),each=5),
   category_match = rep(c("marijuana"), each= 5),
