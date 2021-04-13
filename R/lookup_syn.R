@@ -23,8 +23,8 @@ lookup_syn <- function(drug_name) {
   }
 
   # lookup individual words
-  match <- lookup(drug_name, searchClass=FALSE,
-                          searchCategory=FALSE,
+  match <- lookup(drug_name, searchClass=TRUE,
+                          searchCategory=TRUE,
                           searchSynonym=TRUE)
 
   if (length(match$category) == 1){
@@ -34,9 +34,7 @@ lookup_syn <- function(drug_name) {
       select(-original_word)
   } else {
     print("Your search matched multiple categories. Please choose one and refine your search")
-    answer <- match
-    answer <- answer %>%
-      rename("match" = synonym)
+    answer <- unique(match[c("category")])
   }
   answer
 }
