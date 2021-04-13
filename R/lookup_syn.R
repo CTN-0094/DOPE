@@ -17,25 +17,38 @@ lookup_syn <- function(drug_name) {
 
   # Make sure drug_name is a string
   if (is.character(drug_name)){
-    drug_name <- tolower(drug_name)
+    # make lowercase and remove leading and trailing whitespace
+    drug_name <- tolower(drug_name) %>% trimws()
   } else {
     stop("drug_name should be a string of one drug name")
   }
 
   # lookup individual words
-  match <- lookup(drug_name, searchClass=TRUE,
+  matches <- lookup(drug_name, searchClass=TRUE,
                           searchCategory=TRUE,
                           searchSynonym=TRUE)
 
-  if (length(match$category) == 1){
-    answer <- lookup(match$category, searchSynonym = FALSE)
+  cat_matches <- unique(matches[,c("category")])
+
+  if (length(cat_matches) == 1){
+    answer <- lookup(matches$category, searchClass=TRUE,
+                     searchCategory=TRUE,
+                     searchSynonym = FALSE)
     answer <- answer %>%
       rename("category_match" = category) %>%
       select(-original_word)
+    answer <- subset(answer, synonym != drug_name)
+  } else if(drug_name %in% matches[,c("category")] ){
+    answer <- matches[matches$category == drug_name, ]
+    answer <- answer %>%
+      rename("category_match" = category) %>%
+      select(-original_word)
+    answer <- subset(answer, synonym != drug_name)
   } else {
-    print("Your search matched multiple categories. Please choose one and refine your search")
-    answer <- unique(match[c("category")])
+    print("Your search matched multiple categories. Please choose one from the following list and refine your search. Example: lookup_syn('amphetamine')")
+    answer <- unique(matches[c("category")])
   }
+
   answer
 }
 
