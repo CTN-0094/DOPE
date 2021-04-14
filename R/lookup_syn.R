@@ -15,6 +15,9 @@ library(tidyverse)
 
 lookup_syn <- function(drug_name) {
 
+  #binding vars to function
+  category <- original_word <- synonym <- NULL
+
   # Make sure drug_name is a string
   if (is.character(drug_name)){
     # make lowercase and remove leading and trailing whitespace
@@ -24,7 +27,7 @@ lookup_syn <- function(drug_name) {
   }
 
   # lookup individual words
-  matches <- lookup(drug_name, searchClass=TRUE,
+  matches <- DOPE::lookup(drug_name, searchClass=TRUE,
                           searchCategory=TRUE,
                           searchSynonym=TRUE)
 
@@ -35,14 +38,14 @@ lookup_syn <- function(drug_name) {
                      searchCategory=TRUE,
                      searchSynonym = FALSE)
     answer <- answer %>%
-      rename("category_match" = category) %>%
-      select(-original_word)
+      dplyr::rename("category_match" = category) %>%
+      dplyr::select(-original_word)
     answer <- subset(answer, synonym != drug_name)
   } else if(drug_name %in% matches[,c("category")] ){
     answer <- matches[matches$category == drug_name, ]
     answer <- answer %>%
-      rename("category_match" = category) %>%
-      select(-original_word)
+      dplyr::rename("category_match" = category) %>%
+      dplyr::select(-original_word)
     answer <- subset(answer, synonym != drug_name)
   } else {
     print("Your search matched multiple categories. Please choose one from the following list and refine your search. Example: lookup_syn('amphetamine')")
