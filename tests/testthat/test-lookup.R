@@ -6,7 +6,7 @@ testOut_df <- data.frame(
   synonym = c("zip", "zip", "zip")
 )
 
-print(lookup("zip"))
+
 test_that("basic lookup works", {
   expect_equal(testOut_df, lookup("zip"))
 })
