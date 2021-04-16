@@ -15,9 +15,6 @@
 #'   \code{FALSE}.
 #' @param compressSynonym Should the drug synonym / street name be collapsed?
 #'   Defaults to \code{TRUE}.
-#' @param sortOutput Sort alphabetically rows of the returned table. Defaults
-#'   to FALSE (maintaining the row order of the original \code{lookupTable}
-#'   object).
 #'
 #' @return A compressed lookup table, with unwanted columns removed.
 #'
@@ -34,24 +31,13 @@ compress_lookup <- function(lookupTable,
                             compressCategory = FALSE,
                             compressSynonym = TRUE,
                             sortOutput = FALSE) {
-  # browser()
 
   colsToKeep_lgl <- !c(compressOriginalWord, compressClass, compressCategory, compressSynonym)
   collapsed_df <- unique(
     lookupTable[, colsToKeep_lgl, drop = FALSE]
   )
 
-  if (sortOutput) {
-
-    # I don't know how many columns collapsed_df will have, so I can't pass all
-    #   the columns to order(). TBH, I don't know why this works.
-    out <- collapsed_df[do.call(order, as.list(collapsed_df)), , drop = FALSE]
-
-  } else {
-    out <- collapsed_df
-  }
-
-  row.names(out) <- NULL
-  out
+  row.names(collapsed_df) <- NULL
+  collapsed_df
 
 }
