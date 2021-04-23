@@ -23,14 +23,6 @@ parse <- function(drug_vec){
   word <- drug <- for_token <- NULL
 
   ####Parse out drug names-------------------------------
-  # data("stop_words", package = "tidytext")
-  drug_stop_words <- c("a", "few", "mg", "pills", "pill","days", "off", "bunch", "street",
-                       "tab", "tabs", "detox", "rx", "not", "unsure", "unknown",
-                       "clinic", "bottle", "unknkwn", "type", "patch", "pm", "which",
-                       "injection", "er", "medication", "mgs", "illicit", "iv", "left",
-                       "patches", "visit", "hcl", "plus", "hd", "bit", "cit",
-                       "sulf", "tart", "c-ject", "es", "hp", "syringe", "contin",
-                       "intensol", "ject", "calcium")
   #convert vector to df
   drugs <- as.data.frame(drug_vec)
 

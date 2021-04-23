@@ -6,6 +6,7 @@
 \usage{
 compress_lookup(
   lookupTable,
+  compressOriginalWord = FALSE,
   compressClass = FALSE,
   compressCategory = FALSE,
   compressSynonym = TRUE,
@@ -17,6 +18,9 @@ compress_lookup(
 columns: drug class, drug category, and drug street name. These tables are
 returned by the function \code{\link{lookup}}.}
 
+\item{compressOriginalWord}{Should the search word(s) be collapsed? Defaults to
+\code{FALSE}.}
+
 \item{compressClass}{Should the drug class be collapsed? Defaults to
 \code{FALSE}.}
 
@@ -25,10 +29,6 @@ returned by the function \code{\link{lookup}}.}
 
 \item{compressSynonym}{Should the drug synonym / street name be collapsed?
 Defaults to \code{TRUE}.}
-
-\item{sortOutput}{Sort alphabetically rows of the returned table. Defaults
-to FALSE (maintaining the row order of the original \code{lookupTable}
-object).}
 }
 \value{
 A compressed lookup table, with unwanted columns removed.
