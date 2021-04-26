@@ -41,7 +41,7 @@ Note: `drug_df` is a simulated dataset and does not reflect any true clinical ob
 
 The `parse()` function is intended to extract identifiable drug names from a corpus of text such as, clinical trial data, social media, survey or interview transcription. `parse()` takes in one argument, the vector that contains the strings to be parsed.
 
-Here is an example of some of problematic records in the `drug_df` dataset that warrants the use of `parse()`
+Here is an example of some problematic records in the `drug_df` dataset that warrants the use of `parse()`
 
 ```{r messy}
 
@@ -80,3 +80,48 @@ str(lookup_df)
 
 class(lookup_df)
 ```
+
+The purpose of this function is to return any possible matches to the lookup_df, which is a comprehensive dataframe consisting of all drug classes, categories and synonyms. It serves as a source or helper function to many of the other more specific function in the package. The idea is to match any possible columns with a the single word, a list of separate words or a vector passed as an argument. The dataframe returned will consist of the lookup_df match as well as the `original_word` that was the source of the match. 
+
+Here is an example of a common search done using `lookup`. 
+
+```{r}
+results <- lookup("crack", "pizza", "marijuana")
+head(results)
+```
+
+You can see that the dataframe returned could be vast in it's matches, and that the other more specific functions, below, might be of more use depending on one's needs. 
+
+---
+
+### `compress_lookup()`
+
+This function takes in one argument: the table returned from a search using the `lookup` function. The purpose of this function is to narrow down the results to a more specific dataframe consisting of only relevant values, such as `Class` and/or `Category` depending on the users selection. However, it defaults to returning just `Class`, `Category` and `Original_Word` from the large list of matches. 
+
+
+If a researcher wanted to determine the main classes of drugs being used by the patients of a clinical study, they might pass a large vector of words from clinical notes taken in a study to the `lookup` function, then filter them down to only the return the datafram of classes relevant to their needs.
+
+Here is an example of a common search done using `compress_lookup`. 
+
+```{r}
+results <- lookup("crack", "pizza", "marijuana")
+filtered_df <- compress_lookup(results, compressOriginalWord = TRUE, compressCategory = TRUE)
+head(filtered_df)
+```
+
+The resulting dataframe is a short list of only the relevant information needed. 
+
+---
+
+### `lookup_syn()`
+
+The purpose of this function is to find all possible synonyms of, primarily, a slang/street name of a commonly abused drug. Though searching for a drug class or category will also return common synonyms. This function takes just one argument: a string of one specific drug `drug_name`. The function will then determine the category of the slang term and return all synonyms that share that category. 
+
+Here is an example of a common search done using `lookup_syn`. 
+
+```{r}
+results <- lookup_syn("china")
+head(results)
+```
+
+The resulting dataframe contains a moderate list of terms that are synonyms of the `drug_name` given as determined by sources such as the DEA, FDA and some third party specialist. 
