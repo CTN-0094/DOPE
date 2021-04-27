@@ -69,9 +69,9 @@ The resulting vector can then be passed on to the `lookup_*` functions to identi
 ### `lookup()`
 
 This function relies on a comprehensive lookup table `lookup_df`. This dataframe contains 3 variables:  
-- `class` =  
-- `category` =  
-- `synonym` =  
+- `class` =  Highest level classification e.g. "stimulant" or "narcotic (opiod)"
+- `category` =  More specific level of classification e.g. "heroin", "opium" or "marijuana"
+- `synonym` =  Common name or street slang for specific drug name e.g. "china", "dope" or "weed"
 
 ```{r lookup_df, echo=TRUE}
 dim(lookup_df)
@@ -90,16 +90,16 @@ results <- lookup("crack", "pizza", "marijuana")
 head(results)
 ```
 
-You can see that the dataframe returned could be vast in it's matches, and that the other more specific functions, below, might be of more use depending on one's needs. 
+You can see that the dataframe returned could be vast in its matches, and that the other more specific functions, below, might be of more use depending on one's needs. 
 
 ---
 
 ### `compress_lookup()`
 
-This function takes in one argument: the table returned from a search using the `lookup` function. The purpose of this function is to narrow down the results to a more specific dataframe consisting of only relevant values, such as `Class` and/or `Category` depending on the users selection. However, it defaults to returning just `Class`, `Category` and `Original_Word` from the large list of matches. 
+This function takes in one argument: the table returned from a search using the `lookup` function. The purpose of this function is to narrow down the results to a more specific dataframe consisting of only relevant values, such as `class` and/or `category` depending on the user's selection. `compress_lookup` returns, by default, `original_word`, `class` and `category`. 
 
 
-If a researcher wanted to determine the main classes of drugs being used by the patients of a clinical study, they might pass a large vector of words from clinical notes taken in a study to the `lookup` function, then filter them down to only the return the datafram of classes relevant to their needs.
+If a researcher wanted to determine the main classes of drugs being used by the patients of a clinical study, they might pass a large vector of substances from clinical notes taken in a study to the `lookup` function, then filter them down to only return the datafram of classes relevant to their needs.
 
 Here is an example of a common search done using `compress_lookup`. 
 
@@ -115,7 +115,7 @@ The resulting dataframe is a short list of only the relevant information needed.
 
 ### `lookup_syn()`
 
-The purpose of this function is to find all possible synonyms of, primarily, a slang/street name of a commonly abused drug. Though searching for a drug class or category will also return common synonyms. This function takes just one argument: a string of one specific drug `drug_name`. The function will then determine the category of the slang term and return all synonyms that share that category. 
+The purpose of this function is to find all possible synonyms of, primarily, a slang/street name of a commonly abused drug. Though searching for a drug class or category with `lookup()` will also return common synonms, this function makes searching specifically for synonyms explicit by taking just one argument: `drug_name`. The function will then determine the category of the slang term (drug_name) and return all synonyms that share that category. 
 
 Here is an example of a common search done using `lookup_syn`. 
 
@@ -124,4 +124,4 @@ results <- lookup_syn("china")
 head(results)
 ```
 
-The resulting dataframe contains a moderate list of terms that are synonyms of the `drug_name` given as determined by sources such as the DEA, FDA and some third party specialist. 
+The resulting dataframe contains a moderate list of terms that are synonyms of the `drug_name` given as determined by sources such as the DEA, FDA and other publicly available resources. 
