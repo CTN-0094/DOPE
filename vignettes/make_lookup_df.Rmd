@@ -198,7 +198,7 @@ Add data from IQVIA
 iqvia <- DOPE::iqvia %>%
   mutate(across(where(is.character), tolower)) 
 
-lookup_df <- DOPE::lookup_df %>% 
+lookup_df <- lookup_df %>% 
   bind_rows(iqvia)
 
 

@@ -15,9 +15,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 library(DOPE)
-library(tidyverse)
+library(dplyr)
 library(stringr)
 ```
 
@@ -56,7 +56,7 @@ As you can see there are so many extraneous/problematic characters, multiple dru
 This messy data is exactly what `parse()` was designed for. 
 
 ```{r}
-drug_names <- parse(drug_df$textdrug)
+drug_names <- DOPE::parse(drug_df$textdrug)
 
 head(drug_names)
 ```
