@@ -46,7 +46,9 @@ everything <- tibble(what = unique(c(CCNI$what, DD$what, MOI$what, MONI$what, OR
 # parse() on iqvia data---------------------------------------------------------
 iqvia <- read_rds("inst/extdata/IQVIA/iqvia_raw.rds")
 
-parse_iqvia <- DOPE::parse(iqvia$what)
+parse_iqvia <- DOPE::parse(iqvia$what) %>%
+  tibble() %>%
+  distinct()
 
 fill_lookup <- function(x){
   #browser()
@@ -123,6 +125,6 @@ fill_lookup <- function(x){
 # drug_vec <- parse_iqvia$drug %>%
 #   unname()
 
-iqvia <- map_dfr(parse_iqvia, fill_lookup)
+iqvia <- map_dfr(parse_iqvia$., fill_lookup)
 
 usethis::use_data(iqvia, overwrite = TRUE)
