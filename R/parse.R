@@ -20,7 +20,7 @@
 parse <- function(drug_vec){
 
   #binding vars to function
-  word <- drug <- for_token <- drug_stop_words <- NULL
+  word <- drug <- for_token <- NULL
 
   ####Parse out drug names-------------------------------
   #convert vector to df
