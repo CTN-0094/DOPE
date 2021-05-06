@@ -2,8 +2,10 @@ reference:
 
 - title: Functions
   contents:
-  - lookup
   - compress_lookup
+  - lookup
+  - lookup_syn
+  - parse
 
 - title: Tables
   contents:
@@ -11,6 +13,11 @@ reference:
   - dea_controlled
   - dea_factsheets
   - dea_street_names
+  - drug_df
+  - drug_stop_words
+  - iqvia
   - lookup_df
   - noslang_raw
   - noslang_street_names
+
+

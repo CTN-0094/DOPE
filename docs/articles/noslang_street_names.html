@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -70,6 +70,9 @@
     </li>
     <li>
       <a href="../articles/noslang_street_names.html">How the noslang_stret_names file was made.</a>
+    </li>
+    <li>
+      <a href="../articles/parse_lookup.html">Introduction to parse and the lookup_ functions</a>
     </li>
   </ul>
 </li>
@@ -150,7 +153,7 @@
 <div id="finding-drug-names" class="section level1">
 <h1 class="hasAnchor">
 <a href="#finding-drug-names" class="anchor"></a>Finding Drug Names</h1>
-<p>In the No Slang dataset, noslang_street_names (which was scraped from the NoSlang website) there is a <code>description</code> variable which contains both drug names and other phrases, for things like amounts. For the <code>DOPE</code> package we extracted the drug names. To do this, a dataset called <code>ns</code> was created that contains the unique words/phrases in <code>description</code>. The code below, adds indicator variables beginning with “d_”. That set of variables were created by first checking for drugs that were mentioned by the DEA files. The total number of known drugs in the <code>description</code> were tallied. The records that contained 0 drug names were manually checked and new “d_” variables were added if the description was for a drug. The new drugs mentioned by NewSlang.org are marked with “# NS”. There are some misspelling and slang words in the <code>description</code> variable. They appear in a <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> separated list in the <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> calls below.</p>
+<p>In the No Slang dataset, noslang_street_names (which was scraped from the NoSlang website) there is a <code>description</code> variable which contains both drug names and other phrases, for things like amounts. For the <code>DOPE</code> package we extracted the drug names. To do this, a dataset called <code>ns</code> was created that contains the unique words/phrases in <code>description</code>. The code below, adds indicator variables beginning with “d_”. That set of variables were created by first checking for drugs that were mentioned by the DEA files. The total number of known drugs in the <code>description</code> were tallied. The records that contained 0 drug names were manually checked and new “d_” variables were added if the description was for a drug. The new drugs mentioned by NoSlang.com are marked with “# NS”. There are some misspelling and slang words in the <code>description</code> variable. They appear in a <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> separated list in the <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> calls below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># add note to use singular instead of plural</span>

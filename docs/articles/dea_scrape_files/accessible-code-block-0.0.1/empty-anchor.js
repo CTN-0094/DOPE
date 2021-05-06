@@ -3,7 +3,7 @@
 // Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
 
 document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByCategoryName("sourceCode");
+  const codeList = document.getElementsByClassName("sourceCode");
   for (var i = 0; i < codeList.length; i++) {
     var linkList = codeList[i].getElementsByTagName('a');
     for (var j = 0; j < linkList.length; j++) {
