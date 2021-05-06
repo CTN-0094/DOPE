@@ -25,7 +25,7 @@ Description: Provides information on drug names (brand,
     generic and street) for drugs tracked by the DEA. There are functions that 
     will search synonyms and return the drug names and types. The vignettes 
     have extensive information on the work done to create the data for the package.
-License: MIT 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
