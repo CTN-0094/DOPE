@@ -87,3 +87,4 @@ inst/extdata/test_parse/make_test_data.R
 !data/noslang_raw.rda
 !data/iqvia.rda
 !data/drug_df.rda
+!data/drug_stop_words.rda
