@@ -1,3 +1,9 @@
+# Clean data from IQVIA
+# Layla Bouzoubaa
+# 03/2021
+# UPDATED: 20210506
+
+
 ##### Add IQVIA data to lookup table--------------------------------------------
 
 library(conflicted)

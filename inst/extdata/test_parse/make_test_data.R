@@ -1,3 +1,8 @@
+# Make package test data
+# Layla Bouzoubaa
+# 03/2021
+# UPDATED: 20210506
+
 library(readxl)
 library(dplyr)
 drug_data <- read_xlsx(here::here("./inst/extdata/test_parse/CTN94TEXTFILLS.xlsx")) %>%

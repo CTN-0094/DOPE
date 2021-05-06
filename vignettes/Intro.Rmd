@@ -129,6 +129,8 @@ One file, *noslang_street_names.rda* , was created by scraping the [*Drug Slang 
 
 # IQVIA
 
+Additional drugs found while processing data from IQVIA. Thanks to Edward Nunes M.D. for providing notes on how to better classify these drugs. This data introduced new classes such as reversal agents and treatment drugs.
+
 # `drug_stop_words.rda`
 
 This is a vector of drug-specific stop words that have been observed while processing data from the aforementioned data sources. This vector is primarily used with the `parse()` function and is used to remove irrelevant words (i.e., "pills", "syringe") or strings such as units or dosages of drugs (i.e., "mg").

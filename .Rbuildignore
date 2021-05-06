@@ -6,3 +6,6 @@
 ^pkgdown$
 ^studyStructure.\R$
 ^processNoSlang.\R$
+^inst/extdata/IQVIA/Copy of OVERALL_CATEGORIES-4 Nunes notes 2 19.xlsx$
+^inst/extdata/IQVIA/Copy of OVERALL_CATEGORIES-4.xlsx$
+^inst/extdata/FDA/opioid NDC 1-12-21.xlsx$

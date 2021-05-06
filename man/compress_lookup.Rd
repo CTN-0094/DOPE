@@ -9,8 +9,7 @@ compress_lookup(
   compressOriginalWord = FALSE,
   compressClass = FALSE,
   compressCategory = FALSE,
-  compressSynonym = TRUE,
-  sortOutput = FALSE
+  compressSynonym = TRUE
 )
 }
 \arguments{

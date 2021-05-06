@@ -1,8 +1,8 @@
 ---
-title: "Introduction to parse() and the lookup_*() functions"
+title: "Introduction to parse and the lookup_ functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{parse}
+  %\VignetteIndexEntry{Introduction to parse and the lookup_ functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,7 +26,8 @@ This package aims to parse out identifiable drug names given a corpus of text. B
 
 ## Data: drug_df
 
----
+------
+
 Throughout this vignette, we will employ a sample dataset - `drug_df` - that is intended to represent data collected from a clinical trial. The dataset contains 3 variables and 500 observations. 
 
 ```{r data, echo=TRUE}
@@ -40,7 +41,7 @@ Note: `drug_df` is a simulated dataset and does not reflect any true clinical ob
 
 ## `parse()`
 
----
+------
 
 The `parse()` function is intended to extract identifiable drug names from a corpus of text such as, clinical trial data, social media, survey or interview transcription. `parse()` takes in one argument, the vector that contains the strings to be parsed.
 
@@ -73,7 +74,7 @@ The resulting vector can then be passed on to the `lookup_*` functions to identi
 
 ## `lookup_*`
 
----
+------
 
 ### `lookup()`
 
@@ -105,7 +106,7 @@ head(results, 15) %>%
 
 You can see that the dataframe returned could be vast in its matches (heroin returns another few hundred matches alone), and that the other more specific functions, below, might be of more use depending on one's needs. 
 
----
+------
 
 ### `compress_lookup()`
 
@@ -123,7 +124,7 @@ head(filtered_df)
 
 The resulting dataframe is a short list of only the relevant information needed. 
 
----
+------
 
 ### `lookup_syn()`
 
