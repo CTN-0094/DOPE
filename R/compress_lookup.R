@@ -29,8 +29,7 @@ compress_lookup <- function(lookupTable,
                             compressOriginalWord = FALSE,
                             compressClass = FALSE,
                             compressCategory = FALSE,
-                            compressSynonym = TRUE,
-                            sortOutput = FALSE) {
+                            compressSynonym = TRUE) {
 
   colsToKeep_lgl <- !c(compressOriginalWord, compressClass, compressCategory, compressSynonym)
   collapsed_df <- unique(
