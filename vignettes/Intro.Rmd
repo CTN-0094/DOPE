@@ -72,7 +72,7 @@ This is a summary of the the drugs on the DEA website.  It include drug class (i
 ## Web Scrape
 Two files, *dea_factsheets.rda* and *dea_brands.rda*, were created by scraping the "fact sheets" on the DEA website on September 10th 2020. The fact had 12 records added because the DEA slang file has additional "categories" (e.g., crack cocaine, mushrooms, PCP, etc.).  These extra "categories" are problematic for the DEA ontology because they also include a specific brand name (i.e., ritalin) and two benzodiazepines (i.e., alprazolam, clonazepam).  Eventually these need to be added as part of a "generic name" level in the ontology.
 
-### Fact Sheets
+## Fact Sheets
 
 + *dea_factsheets.rda* (N = `r nrow(dea_factsheets)` records) has `r length(class)` drug classes and `r nrow(category)` categories (e.g., `r category$category[1]`, `r category$category[2]`, etc.).  One extra class "benzodiazepine" was added because it is a grouping class in the DEA slang file.
 
@@ -81,7 +81,7 @@ sort(class) %>%
   knitr::kable(col.names = "Class")
 ```
 
-### Drug Brands
+## Drug Brands
 
 + *dea_brands.rda* (N = `r nrow(dea_brands)` records) has `r length(category2)` drug categories (e.g., `r category2[1:3]`, etc.) and `r length(brands)`  brands (e.g., `r brands[1]`, `r brands[2]`, etc.)
 
@@ -89,7 +89,7 @@ sort(class) %>%
 
 Two pdfs, with slang^[https://www.dea.gov/sites/default/files/resource-center/Publications/Intel%20Products/DIR-020-17%20Drug%20Slang%20Code%20Words.pdf] and controlled substances^[https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf] were download and processed to make  *slang.rda* and *controlled.rda*.
 
-### Slang
+## Slang
 
 + *dea_street_names.rda* (N = `r nrow(dea_street_names)` records) contains `r length(unique(dea_street_names$category))` drug categories and `r length(unique(dea_street_names$brand)) - 1` brands (e.g., `r unique(dea_street_names$brand)[2:4]`).
 
@@ -99,7 +99,7 @@ Two pdfs, with slang^[https://www.dea.gov/sites/default/files/resource-center/Pu
     + Discrepancies, relative to the fact sheets, include *psilocybin* listed as *Mushrooms*, *bath salts* listed as *Synthetic Cathinones*, *synthetic marijuana* listed as *Synthetic Cannabinoids*.
     + There are `r nrow(unique(duplicates$slang))` dpulicate terms (e.g., `r unique(duplicates$slang)[1:3]`)
 
-### Controlled Substances
+## Controlled Substances
 
 + *dea_controlled.rda* (N = `r nrow(dea_controlled)` records) has these variables
     + `substance`: Chemical and/or brand names
