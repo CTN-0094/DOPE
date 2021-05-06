@@ -46,7 +46,7 @@ lookup("cheese", "pizza", "with", "a", "soda")
 lookup(c("Buprenorphine", "Tramadol", "Bup/Nx"))
 ```
 
-If your only care about the class and/or category and/or if you serach returns many matches you can use the compress_lookup() function to drop columns and then remove duplicate rorws.
+If your only care about the class and/or category and/or if you search returns many matches you can use the compress_lookup() function to drop columns and then remove duplicate rows.
 
 ```
 lookup("cheese", "pizza", "with", "a", "soda") %>%
@@ -55,7 +55,7 @@ lookup("cheese", "pizza", "with", "a", "soda") %>%
                   compressSynonym = TRUE)
 ```
 
-DOPE now allows for parsing out drug names from a vector which contains free text with the `parse()` function. You can use it in conjuction with`lookup()` and `compress_lookup()`
+DOPE now allows for parsing out drug names from a vector which contains free text with the `parse()` function. You can use it in conjunction with`lookup()` and `compress_lookup()`
 
 ```
 data(drug_df)
