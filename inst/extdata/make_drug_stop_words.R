@@ -1,9 +1,9 @@
-# TITLE
-# AUTHOR
-# DATE
+# Make drug_stop_words vector
+# Layla Bouzoubaa
+# 03/2021
 # UPDATED: 20210506
 
-# This vector contains drug specfic stop-words, designed to be used with parse()
+# This vector contains drug specific stop-words, designed to be used with parse()
 
 drug_stop_words <- c(
   "a", "few", "mg", "pills", "pill","days", "off", "bunch", "street", "tab",

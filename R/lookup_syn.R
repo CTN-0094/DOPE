@@ -1,4 +1,3 @@
-library(tidyverse)
 #' Make a table with the class and category for a drug name
 #'
 #' @description This function provides a table with drug synonyms that have the

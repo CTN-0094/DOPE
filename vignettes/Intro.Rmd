@@ -126,3 +126,9 @@ This is a summary of the the drugs on the no slang website.
 One file, *noslang_street_names.rda* , was created by scraping the [*Drug Slang Dictionary*](https://www.noslang.com/drugs/dictionary) October 12th 2020.
 
 + *noslang_street_names.rda* has `r nrow(noslang_street_names)` drug related terms.
+
+# IQVIA
+
+# `drug_stop_words.rda`
+
+This is a vector of drug-specific stop words that have been observed while processing data from the aforementioned data sources. This vector is primarily used with the `parse()` function and is used to remove irrelevant words (i.e., "pills", "syringe") or strings such as units or dosages of drugs (i.e., "mg").
