@@ -28,6 +28,7 @@ Description: Provides information on drug names (brand,
 License: MIT + file LICENSE
 URL: https://ctn-0094.github.io/DOPE/,
     https://github.com/CTN-0094/DOPE
+BugReports: https://github.com/CTN-0094/DOPE/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
