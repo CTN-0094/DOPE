@@ -17,7 +17,6 @@ This function provides a dataframe of parsed out strings from a
 free text field, input as a vector, specified by the user.
 }
 \examples{
-\dontrun{
-parse(drug_vec)
-}
+  parse("Lortab and Percocet")
+
 }

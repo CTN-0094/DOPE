@@ -7,17 +7,17 @@ Authors@R: c(
            role = c("aut", "cre"),
            email = "balise@miami.edu",
            comment = c(ORCID = "0000-0002-9856-5901")),
-    person(given = "Layla",
-           family = "Bouzoubaa",
-           role = c("aut"),
-           email = "lab218@miami.edu",
-           comment = c(ORCID = "https://orcid.org/0000-0002-6616-0950")),
-     person(given = "Gabriel",
+    person(given = "Gabriel",
            family = "Odom",
            role = c("aut"),
            email = "gabriel.odom@fiu.edu",
            comment = c(ORCID = "0000-0003-1341-4555")),
-     person(given = "Nathaniel",
+    person(given = "Layla",
+           family = "Bouzoubaa",
+           role = c("aut"),
+           email = "lab218@miami.edu",
+           comment = c(ORCID = "0000-0002-6616-0950")),
+    person(given = "Nathaniel",
            family = "Castor",
            role = c("aut"),
            email = "nxc741@miami.edu"))
@@ -34,13 +34,13 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr,
-    tidytext,
-    stringr,
+    magrittr,
     stats,
-    utils,
-    magrittr
+    stringr,
+    tibble,
+    tidytext,
+    utils
 Suggests: 
-    dm,
     purrr,
     knitr,
     rmarkdown,
@@ -49,7 +49,6 @@ Suggests:
     rvest,
     sqldf,
     tidyr,
-    tibble,
     testthat,
     usethis,
     xml2
