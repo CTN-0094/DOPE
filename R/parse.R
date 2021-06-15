@@ -35,10 +35,11 @@ parse <- function(drug_vec){
   ## should be preserved - replace with any with spaces to have / so all
   ## are consistently bup/nx
   #ex. and combination of "speedball" also preserved
+
   unnestedDrugs_df <-
     tibble(drug_vec) %>%
     unnest_tokens(
-      word, drug_vec, token = "regex", pattern = "[,|-|+|&]", to_lower = TRUE
+      word, drug_vec, token = "regex", pattern = "[,|-|+|&| ]", to_lower = TRUE
     ) %>%
     mutate(
       drug = trimws(tolower(word))
