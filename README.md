@@ -25,7 +25,7 @@ Run these two lines of code to install DOPE from GitHub (this requires RTools fo
 
 ``` r
 if (!requireNamespace("devtools")) install.packages("devtools")
-devtools::install_github("labouz/DOPE")
+devtools::install_github("CTN-0094/DOPE")
 ```
 
 ## Examples

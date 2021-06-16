@@ -72,7 +72,7 @@ parse <- function(drug_vec){
       word = trimws(word)
     ) %>%
     filter(word != "") %>%
-    anti_join(tidytext::stop_words) %>%
+    anti_join(tidytext::stop_words, by = "word") %>%
     filter(!(word %in% drug_stop_words))
 
 
