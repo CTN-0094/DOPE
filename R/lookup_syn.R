@@ -47,10 +47,15 @@ lookup_syn <- function(drug_name) {
       dplyr::select(-original_word)
     answer <- subset(answer, synonym != drug_name)
   } else {
-    phrase = paste0("Your search matched multiple categories. Please choose one from the following list and refine your search. Example: lookup_syn('",
-    unique(matches[c("category")])[1,1], "') or lookup_syn('", unique(matches[c("category")])[2,1], "')")
-    cat(phrase, "\n")
+    message(
+"Your search matched multiple categories. Please choose one from the following list and \n",
+"refine your search. Example: ",
+"lookup_syn('", unique(matches[c("category")])[1,1], "') or ",
+"lookup_syn('", unique(matches[c("category")])[2,1], "')"
+)
+
     answer <- unique(matches[c("category")])
+
   }
 
   answer
