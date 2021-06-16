@@ -62,3 +62,7 @@ data(drug_df)
 parse(drug_df$textdrug[1:5]) %>%
   lookup()
 ```
+
+
+## Additional Information
+For more information or to see detailed vignettes, please visit <https://ctn-0094.github.io/DOPE/>.

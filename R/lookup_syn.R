@@ -48,8 +48,8 @@ lookup_syn <- function(drug_name) {
     answer <- subset(answer, synonym != drug_name)
   } else {
     message(
-"Your search matched multiple categories. Please choose one from the following list and \n",
-"refine your search. Example: ",
+"Your search matched multiple categories. Please choose one \n",
+"from the following list and refine your search. Example: \n",
 "lookup_syn('", unique(matches[c("category")])[1,1], "') or ",
 "lookup_syn('", unique(matches[c("category")])[2,1], "')"
 )
