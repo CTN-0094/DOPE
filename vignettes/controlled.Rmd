@@ -61,7 +61,17 @@ new <- controlled %>%
 ```
 
 # *Difficult* synonyms
-Here the difficult names are exported to a text file and then parsed by to separate names with semi-colons. Check the git history for a partial solution that automated this for specific types complexities.  
+Here the difficult names are exported to a text file and then parsed by hand to separate names with semi-colons. Check the git history for a partial solution that automated this for specific types complexities.
+
+Changes made to the `Difficult.csv` file include:
+
+- Added semicolons to match the original DEA "Orange Book" formatting for lines 5, 7, 11, 12, 16, 21, 22, 25, 29, 34, 36, 51, 53, and 55
+- Deleted "Listed as " from line 10
+- Deleted " (UK)" from line 23
+- Deleted "Constituent of ... plant " from line 26
+- Added semicolons and replaced " or " in line 28
+- Deleted unprintable Unicode character (appearing as an empty space in the original PDF) from line 42
+
 ```{r}
 # filtered rows where synonyms are "difficult"
 difficult <- new %>% 
