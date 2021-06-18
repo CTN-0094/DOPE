@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -57,9 +57,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Intro.html">Introduction to DOPE</a>
-    </li>
-    <li>
       <a href="articles/controlled.html">How the dea_controlled file was made.</a>
     </li>
     <li>
@@ -67,6 +64,9 @@
     </li>
     <li>
       <a href="articles/dea_street_names.html">How the dea_street_names file was made.</a>
+    </li>
+    <li>
+      <a href="articles/Intro.html">Introduction to DOPE</a>
     </li>
     <li>
       <a href="articles/make_lookup_df.html">Make Lookup Table</a>
@@ -83,7 +83,14 @@
   <a href="news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/CTN-0094/DOPE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -119,7 +126,7 @@
 <p>Run these two lines of code to install DOPE from GitHub (this requires RTools for Windows or Xcode for Mac to be installed on your computer):</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"labouz/DOPE"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"CTN-0094/DOPE"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="examples" class="section level2">
@@ -127,12 +134,12 @@
 <a href="#examples" class="anchor"></a>Examples</h2>
 <p>You can look up details on a drug with the <code><a href="reference/lookup.html">lookup()</a></code> function. It will check brand, generic and street names.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DOPE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ctn-0094.github.io/DOPE/">DOPE</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/lookup.html">lookup</a></span><span class="op">(</span><span class="st">"adderall"</span><span class="op">)</span>
 <span class="fu"><a href="reference/lookup.html">lookup</a></span><span class="op">(</span><span class="st">"ketamine"</span><span class="op">)</span>
 <span class="fu"><a href="reference/lookup.html">lookup</a></span><span class="op">(</span><span class="st">"auntie"</span><span class="op">)</span></code></pre></div>
 <p>The lookup funciton supports vectorized lookups:</p>
-<pre><code><a href="https://rdrr.io/r/base/library.html">library(DOPE)
+<pre><code><a href="https://ctn-0094.github.io/DOPE/">library(DOPE)
 lookup("cheese", "pizza", "with", "a", "soda")
 lookup(c("Buprenorphine", "Tramadol", "Bup/Nx"))</a></code></pre>
 <p>If your only care about the class and/or category and/or if you search returns many matches you can use the compress_lookup() function to drop columns and then remove duplicate rows.</p>
@@ -145,6 +152,11 @@ lookup(c("Buprenorphine", "Tramadol", "Bup/Nx"))</a></code></pre>
 parse(drug_df$textdrug[1:5]) %&gt;%
   lookup()</a></code></pre>
 </div>
+<div id="additional-information" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additional-information" class="anchor"></a>Additional Information</h2>
+<p>For more information or to see detailed vignettes, please visit <a href="https://ctn-0094.github.io/DOPE/" class="uri">https://ctn-0094.github.io/DOPE/</a>.</p>
+</div>
 </div>
   </div>
 
@@ -153,6 +165,10 @@ parse(drug_df$textdrug[1:5]) %&gt;%
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=DOPE">https://​cloud.r-project.org/​package=DOPE</a>
+</li>
+<li>Browse source code at <br><a href="https://github.com/CTN-0094/DOPE/">https://​github.com/​CTN-0094/​DOPE/​</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/CTN-0094/DOPE/issues">https://​github.com/​CTN-0094/​DOPE/​issues</a>
 </li>
 </ul>
 </div>
@@ -167,7 +183,7 @@ parse(drug_df$textdrug[1:5]) %&gt;%
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Raymond Balise <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9856-5901" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Layla Bouzoubaa <br><small class="roles"> Author </small> <a href="https://orcid.org/https://orcid.org/0000-0002-6616-0950" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Layla Bouzoubaa <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6616-0950" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Gabriel Odom <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1341-4555" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Nathaniel Castor <br><small class="roles"> Author </small>  </li>
 </ul>

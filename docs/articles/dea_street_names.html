@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -54,9 +54,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Intro.html">Introduction to DOPE</a>
-    </li>
-    <li>
       <a href="../articles/controlled.html">How the dea_controlled file was made.</a>
     </li>
     <li>
@@ -64,6 +61,9 @@
     </li>
     <li>
       <a href="../articles/dea_street_names.html">How the dea_street_names file was made.</a>
+    </li>
+    <li>
+      <a href="../articles/Intro.html">Introduction to DOPE</a>
     </li>
     <li>
       <a href="../articles/make_lookup_df.html">Make Lookup Table</a>
@@ -80,7 +80,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/CTN-0094/DOPE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -90,13 +97,13 @@
 
       
 
-      </header><script src="dea_street_names_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="dea_street_names_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>How the dea_street_names file was made.</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/CTN-0094/DOPE/blob/master/vignettes/dea_street_names.Rmd"><code>vignettes/dea_street_names.Rmd</code></a></small>
       <div class="hidden name"><code>dea_street_names.Rmd</code></div>
 
     </div>
@@ -106,8 +113,8 @@
 <p>“c_cs_alpha.pdf” was downloaded from <a href="https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf" class="uri">https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf</a> on 2020-09-08</p>
 <p>“DIR-020-17 Drug Slang Code Words.pdf” was downloaded from <a href="https://www.dea.gov/" class="uri">https://www.dea.gov/</a> on 2020-09-08 but the full path (<code>documents/2017/05/01</code>) no longer exists. We believe the original file can be found here: <a href="https://www.dea.gov/sites/default/files/2018-07/DIR-020-17%20Drug%20Slang%20Code%20Words.pdf" class="uri">https://www.dea.gov/sites/default/files/2018-07/DIR-020-17%20Drug%20Slang%20Code%20Words.pdf</a>. Note that the file name was changed to remove the spaces (which appear as <code>%20</code>) in the link above.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/pdftools">pdftools</a></span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/pdftools/reference/pdftools.html">pdf_text</a></span><span class="op">(</span><span class="st">"../inst/extdata/DIR-020-17DrugSlangCodeWords.pdf"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pdftools</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">pdf_text</span><span class="op">(</span><span class="st">"../inst/extdata/DIR-020-17DrugSlangCodeWords.pdf"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/sink.html">sink</a></span><span class="op">(</span><span class="st">"slang.txt"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span><span class="op">)</span>

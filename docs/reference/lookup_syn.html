@@ -73,7 +73,7 @@ same class and category as the search term." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -96,9 +96,6 @@ same class and category as the search term." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Intro.html">Introduction to DOPE</a>
-    </li>
-    <li>
       <a href="../articles/controlled.html">How the dea_controlled file was made.</a>
     </li>
     <li>
@@ -106,6 +103,9 @@ same class and category as the search term." />
     </li>
     <li>
       <a href="../articles/dea_street_names.html">How the dea_street_names file was made.</a>
+    </li>
+    <li>
+      <a href="../articles/Intro.html">Introduction to DOPE</a>
     </li>
     <li>
       <a href="../articles/make_lookup_df.html">Make Lookup Table</a>
@@ -123,7 +123,12 @@ same class and category as the search term." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/CTN-0094/DOPE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -138,7 +143,7 @@ same class and category as the search term." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Make a table with the class and category for a drug name</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/CTN-0094/DOPE/blob/master/R/lookup_syn.R'><code>R/lookup_syn.R</code></a></small>
     <div class="hidden name"><code>lookup_syn.Rd</code></div>
     </div>
 
@@ -165,7 +170,9 @@ drug class, drug category match, and synonym name.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='fu'>lookup_syn</span><span class='op'>(</span><span class='st'>"zip"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Your search matched multiple categories. Please choose one from the following list and refine your search. Example: lookup_syn('amphetamine')"</div><div class='output co'>#&gt;          category
+</div><div class='output co'>#&gt; <span class='message'>Your search matched multiple categories. Please choose one </span>
+#&gt; <span class='message'>from the following list and refine your search. Example: </span>
+#&gt; <span class='message'>lookup_syn('cocaine') or lookup_syn('marijuana')</span></div><div class='output co'>#&gt;          category
 #&gt; 1         cocaine
 #&gt; 2       marijuana
 #&gt; 3 methamphetamine</div></pre>

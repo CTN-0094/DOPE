@@ -73,7 +73,7 @@ free text field, input as a vector, specified by the user." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -96,9 +96,6 @@ free text field, input as a vector, specified by the user." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Intro.html">Introduction to DOPE</a>
-    </li>
-    <li>
       <a href="../articles/controlled.html">How the dea_controlled file was made.</a>
     </li>
     <li>
@@ -106,6 +103,9 @@ free text field, input as a vector, specified by the user." />
     </li>
     <li>
       <a href="../articles/dea_street_names.html">How the dea_street_names file was made.</a>
+    </li>
+    <li>
+      <a href="../articles/Intro.html">Introduction to DOPE</a>
     </li>
     <li>
       <a href="../articles/make_lookup_df.html">Make Lookup Table</a>
@@ -123,7 +123,12 @@ free text field, input as a vector, specified by the user." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/CTN-0094/DOPE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -138,7 +143,7 @@ free text field, input as a vector, specified by the user." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Parse a vector of free text containing drug information</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/CTN-0094/DOPE/blob/master/R/parse.R'><code>R/parse.R</code></a></small>
     <div class="hidden name"><code>parse.Rd</code></div>
     </div>
 
@@ -163,9 +168,8 @@ free text field, input as a vector, specified by the user.</p>
     <p>A n x 1 vector of class <code>character</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>parse</span><span class='op'>(</span><span class='va'>drug_vec</span><span class='op'>)</span>
-<span class='op'>}</span>
+    <pre class="examples"><div class='input'>  <span class='fu'>parse</span><span class='op'>(</span><span class='st'>"Lortab and Percocet"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "lortab"   "percocet"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

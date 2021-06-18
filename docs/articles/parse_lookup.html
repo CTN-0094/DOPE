@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -54,9 +54,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Intro.html">Introduction to DOPE</a>
-    </li>
-    <li>
       <a href="../articles/controlled.html">How the dea_controlled file was made.</a>
     </li>
     <li>
@@ -64,6 +61,9 @@
     </li>
     <li>
       <a href="../articles/dea_street_names.html">How the dea_street_names file was made.</a>
+    </li>
+    <li>
+      <a href="../articles/Intro.html">Introduction to DOPE</a>
     </li>
     <li>
       <a href="../articles/make_lookup_df.html">Make Lookup Table</a>
@@ -80,7 +80,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/CTN-0094/DOPE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -90,13 +97,13 @@
 
       
 
-      </header><script src="parse_lookup_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="parse_lookup_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to parse and the lookup_ functions</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/CTN-0094/DOPE/blob/master/vignettes/parse_lookup.Rmd"><code>vignettes/parse_lookup.Rmd</code></a></small>
       <div class="hidden name"><code>parse_lookup.Rmd</code></div>
 
     </div>
@@ -104,7 +111,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DOPE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ctn-0094.github.io/DOPE/">DOPE</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></code></pre></div>
 <p>This package aims to parse out identifiable drug names given a corpus of text. By corpus of text, we assume that the data has already been imported into R.</p>
@@ -113,17 +120,17 @@
 <a href="#data-drug_df" class="anchor"></a>Data: drug_df</h2>
 <hr>
 <p>Throughout this vignette, we will employ a sample dataset - <code>drug_df</code> - that is intended to represent data collected from a clinical trial. The dataset contains 3 variables and 500 observations.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">dim</span>(drug_df)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>   [<span class="dv">1</span>] <span class="dv">500</span>   <span class="dv">3</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">str</span>(drug_df)</span>
-<span id="cb2-5"><a href="#cb2-5"></a>   tibble [<span class="dv">500</span> × <span class="dv">3</span>] (S3<span class="op">:</span><span class="st"> </span>tbl_df<span class="op">/</span>tbl<span class="op">/</span>data.frame)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="op">$</span><span class="st"> </span>textdrug<span class="op">:</span><span class="st"> </span>chr [<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>] <span class="st">"Remeron"</span> <span class="st">"Remeron"</span> <span class="st">"Soma"</span> <span class="st">"Ectacy"</span> ...</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="op">$</span><span class="st"> </span>sex     <span class="op">:</span><span class="st"> </span>chr [<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>] <span class="st">"male"</span> <span class="st">"female"</span> <span class="st">"female"</span> <span class="st">"female"</span> ...</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="op">$</span><span class="st"> </span>race    <span class="op">:</span><span class="st"> </span>chr [<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>] <span class="st">"black"</span> <span class="st">"ai/an"</span> <span class="st">"ai/an"</span> <span class="st">"hn/pi"</span> ...</span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="kw">class</span>(drug_df)</span>
-<span id="cb2-11"><a href="#cb2-11"></a>   [<span class="dv">1</span>] <span class="st">"tbl_df"</span>     <span class="st">"tbl"</span>        <span class="st">"data.frame"</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(drug_df)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">500</span>   <span class="dv">3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(drug_df)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>   tibble [<span class="dv">500</span> x <span class="dv">3</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">$</span> textdrug<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>] <span class="st">"Remeron"</span> <span class="st">"Remeron"</span> <span class="st">"Soma"</span> <span class="st">"Ectacy"</span> ...</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">$</span> sex     <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>] <span class="st">"male"</span> <span class="st">"female"</span> <span class="st">"female"</span> <span class="st">"female"</span> ...</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">$</span> race    <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>] <span class="st">"black"</span> <span class="st">"ai/an"</span> <span class="st">"ai/an"</span> <span class="st">"hn/pi"</span> ...</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(drug_df)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="st">"tbl_df"</span>     <span class="st">"tbl"</span>        <span class="st">"data.frame"</span></span></code></pre></div>
 <p>Note: <code>drug_df</code> is a simulated dataset and does not reflect any true clinical observations.</p>
 </div>
 <div id="parse" class="section level2">
@@ -180,14 +187,16 @@
 </table>
 <p>As you can see there are so many extraneous/problematic characters, multiple drugs in one record and several variations of the same drug (i.e. “bup/nx”). We assume that the user is solely interested in the drugs themselves, not information such as dosage and units.</p>
 <p>This messy data is exactly what <code><a href="../reference/parse.html">parse()</a></code> was designed for.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>drug_names &lt;-<span class="st"> </span>DOPE<span class="op">::</span><span class="kw">parse</span>(messy_data<span class="op">$</span>textdrug)</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>drug_names</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    [<span class="dv">1</span>] <span class="st">"bup/nx"</span>       <span class="st">"bup/nx"</span>       <span class="st">"bup/nx"</span>       <span class="st">"percocets"</span>    <span class="st">"vicodin"</span>     </span>
-<span id="cb4-5"><a href="#cb4-5"></a>    [<span class="dv">6</span>] <span class="st">"barbiturate"</span>  <span class="st">"heroin"</span>       <span class="st">"few"</span>          <span class="st">"days"</span>         <span class="st">"days"</span>        </span>
-<span id="cb4-6"><a href="#cb4-6"></a>   [<span class="dv">11</span>] <span class="st">"off"</span>          <span class="st">"heroin"</span>       <span class="st">"a"</span>            <span class="st">"days"</span>         <span class="st">"days"</span>        </span>
-<span id="cb4-7"><a href="#cb4-7"></a>   [<span class="dv">16</span>] <span class="st">"ambien"</span>       <span class="st">"pills"</span>        <span class="st">"ambien"</span>       <span class="st">"a"</span>            <span class="st">"bunch"</span>       </span>
-<span id="cb4-8"><a href="#cb4-8"></a>   [<span class="dv">21</span>] <span class="st">"pills"</span>        <span class="st">"promethazine"</span> <span class="st">"clonidine"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>drug_names <span class="ot">&lt;-</span> DOPE<span class="sc">::</span><span class="fu">parse</span>(messy_data<span class="sc">$</span>textdrug)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>drug_names</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>] <span class="st">"bup/nx"</span>       <span class="st">"bup/nx"</span>       <span class="st">"bup/nx"</span>       <span class="st">"percocets"</span>    <span class="st">"vicodin"</span>     </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">6</span>] <span class="st">"barbiturate"</span>  <span class="st">"heroin"</span>       <span class="st">"ambien"</span>       <span class="st">"ambien"</span>       <span class="st">"promethazine"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>   [<span class="dv">11</span>] <span class="st">"clonidine"</span>   </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"na.action"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">8</span> <span class="dv">9</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="st">"omit"</span></span></code></pre></div>
 <p>Notice <code><a href="../reference/parse.html">parse()</a></code> cleans up the capitalization and punctuation of ‘bup/nx’. <code><a href="../reference/parse.html">parse()</a></code> has special code to clean up cases of ‘bup/nx’ and also ‘speedball’. It also finds the distinction of the final row “promethazine (25mg), clonidine” and separates them. See the tidytext package.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>The resulting vector can then be passed on to the <code>lookup_*</code> functions to identify whether the input drug is a class, category or a synonym for other drugs in the same category.</p>
 </div>
@@ -210,17 +219,17 @@
 <code>synonym</code> = Common name or street slang for specific drug name e.g. “china”, “dope” or “weed”</li>
 </ul>
 <p>These names were based on terms used by the DEA.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">dim</span>(lookup_df)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>   [<span class="dv">1</span>] <span class="dv">4258</span>    <span class="dv">3</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">str</span>(lookup_df)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>   <span class="st">'data.frame'</span><span class="op">:</span><span class="st">    </span><span class="dv">4258</span> obs. of  <span class="dv">3</span> variables<span class="op">:</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="st">    </span><span class="er">$</span><span class="st"> </span>class   <span class="op">:</span><span class="st"> </span>chr  <span class="st">"hallucinogen"</span> <span class="st">"hallucinogen"</span> <span class="st">"hallucinogen"</span> <span class="st">"hallucinogen"</span> ...</span>
-<span id="cb5-7"><a href="#cb5-7"></a>    <span class="op">$</span><span class="st"> </span>category<span class="op">:</span><span class="st"> </span>chr  <span class="st">"2cb"</span> <span class="st">"2cb"</span> <span class="st">"2cb"</span> <span class="st">"2cb"</span> ...</span>
-<span id="cb5-8"><a href="#cb5-8"></a>    <span class="op">$</span><span class="st"> </span>synonym <span class="op">:</span><span class="st"> </span>chr  <span class="st">"banana split"</span> <span class="st">"bdmpea"</span> <span class="st">"bromo"</span> <span class="st">"mft"</span> ...</span>
-<span id="cb5-9"><a href="#cb5-9"></a></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="kw">class</span>(lookup_df)</span>
-<span id="cb5-11"><a href="#cb5-11"></a>   [<span class="dv">1</span>] <span class="st">"data.frame"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(lookup_df)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">4766</span>    <span class="dv">3</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(lookup_df)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4766</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="er">$</span> class   <span class="sc">:</span> chr  <span class="st">"hallucinogen"</span> <span class="st">"hallucinogen"</span> <span class="st">"hallucinogen"</span> <span class="st">"hallucinogen"</span> ...</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">$</span> category<span class="sc">:</span> chr  <span class="st">"2cb"</span> <span class="st">"2cb"</span> <span class="st">"2cb"</span> <span class="st">"2cb"</span> ...</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">$</span> synonym <span class="sc">:</span> chr  <span class="st">"banana split"</span> <span class="st">"bdmpea"</span> <span class="st">"bromo"</span> <span class="st">"mft"</span> ...</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(lookup_df)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="st">"data.frame"</span></span></code></pre></div>
 <p>The purpose of this function is to return any possible matches to the lookup_df, which is a comprehensive dataframe consisting of all drug classes, categories and synonyms. It serves as a source or helper function to many of the other more specific function in the package. The idea is to match any possible columns with a the single word, a list of separate words or a vector passed as an argument. The dataframe returned will consist of the lookup_df match as well as the <code>original_word</code> that was the source of the match.</p>
 <p>Here is an example of a common search done using <code>lookup</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -337,15 +346,15 @@
 <p>This function takes in one argument: the table returned from a search using the <code>lookup</code> function. The purpose of this function is to narrow down the results to a more specific dataframe consisting of only relevant values, such as <code>class</code> and/or <code>category</code> depending on the user’s selection. <code>compress_lookup</code> returns, by default, <code>original_word</code>, <code>class</code> and <code>category</code>.</p>
 <p>If a researcher wanted to determine the main classes of drugs being used by the patients of a clinical study, they might pass a large vector of substances from clinical notes taken in a study to the <code>lookup</code> function, then filter them down to only return the datafram of classes relevant to their needs.</p>
 <p>Here is an example of a common search done using <code>compress_lookup</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>filtered_df &lt;-<span class="st"> </span><span class="kw">compress_lookup</span>(results)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">head</span>(filtered_df)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>     original_word             class                             category</span>
-<span id="cb7-4"><a href="#cb7-4"></a>   <span class="dv">1</span>        bup<span class="op">/</span>nx    treatment drug                       treatment drug</span>
-<span id="cb7-5"><a href="#cb7-5"></a>   <span class="dv">2</span>     percocets              <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">                                 </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="st">   </span><span class="dv">3</span>       vicodin <span class="kw">narcotic</span> (opioid) codeine combinations, non<span class="op">-</span>injectable</span>
-<span id="cb7-7"><a href="#cb7-7"></a>   <span class="dv">4</span>   barbiturate        depressant                          barbiturate</span>
-<span id="cb7-8"><a href="#cb7-8"></a>   <span class="dv">5</span>        heroin            heroin                               heroin</span>
-<span id="cb7-9"><a href="#cb7-9"></a>   <span class="dv">6</span>           few              <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">                                 </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="ot">&lt;-</span> <span class="fu">compress_lookup</span>(results)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filtered_df)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     original_word             class                             category</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">1</span>        bup<span class="sc">/</span>nx    treatment drug                       treatment drug</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">2</span>     percocets              <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>                                 <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>   <span class="dv">3</span>       vicodin <span class="fu">narcotic</span> (opioid) codeine combinations, non<span class="sc">-</span>injectable</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>   <span class="dv">4</span>   barbiturate        depressant                          barbiturate</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>   <span class="dv">5</span>        heroin            heroin                               heroin</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>   <span class="dv">6</span>        ambien           Unknown                              Unknown</span></code></pre></div>
 <p>The resulting dataframe is a short list of only the relevant information needed.</p>
 <hr>
 </div>
@@ -355,12 +364,11 @@
 </h3>
 <p>The purpose of this function is to find all possible synonyms of, primarily, a slang/street name of a commonly abused drug. Though searching for a drug class or category with <code><a href="../reference/lookup.html">lookup()</a></code> will also return common synonms, this function makes searching specifically for synonyms explicit by taking just one argument: <code>drug_name</code>. The function will then determine the category of the slang term (drug_name) and return all synonyms that share that category.</p>
 <p>Here is an example of a common search done using <code>lookup_syn</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>results &lt;-<span class="st"> </span><span class="kw">lookup_syn</span>(<span class="st">"shrooms"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>   [<span class="dv">1</span>] <span class="st">"Your search matched multiple categories. Please choose one from the following list and refine your search. Example: lookup_syn('amphetamine')"</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">head</span>(results)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>       category</span>
-<span id="cb8-5"><a href="#cb8-5"></a>   <span class="dv">1</span>  mushrooms</span>
-<span id="cb8-6"><a href="#cb8-6"></a>   <span class="dv">2</span> psilocybin</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">lookup_syn</span>(<span class="st">"shrooms"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>       category</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">1</span>  mushrooms</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">2</span> psilocybin</span></code></pre></div>
 <p>The resulting dataframe contains a moderate list of terms that are synonyms of the <code>drug_name</code> given as determined by sources such as the DEA, FDA and other publicly available resources.</p>
 </div>
 </div>

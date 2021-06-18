@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DOPE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -54,9 +54,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Intro.html">Introduction to DOPE</a>
-    </li>
-    <li>
       <a href="../articles/controlled.html">How the dea_controlled file was made.</a>
     </li>
     <li>
@@ -64,6 +61,9 @@
     </li>
     <li>
       <a href="../articles/dea_street_names.html">How the dea_street_names file was made.</a>
+    </li>
+    <li>
+      <a href="../articles/Intro.html">Introduction to DOPE</a>
     </li>
     <li>
       <a href="../articles/make_lookup_df.html">Make Lookup Table</a>
@@ -80,7 +80,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/CTN-0094/DOPE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -90,13 +97,13 @@
 
       
 
-      </header><script src="make_lookup_df_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="make_lookup_df_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Make Lookup Table</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/CTN-0094/DOPE/blob/master/vignettes/make_lookup_df.Rmd"><code>vignettes/make_lookup_df.Rmd</code></a></small>
       <div class="hidden name"><code>make_lookup_df.Rmd</code></div>
 
     </div>
@@ -107,7 +114,7 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/conflicted">conflicted</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/conflicted/man/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"filter"</span>, <span class="st">"dplyr"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DOPE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ctn-0094.github.io/DOPE/">DOPE</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://stringr.tidyverse.org">stringr</a></span><span class="op">)</span>
@@ -339,13 +346,31 @@
          class <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">class</span> <span class="op">==</span> <span class="st">"narcotics (opioids)"</span> <span class="op">~</span> <span class="st">"narcotic (opioid)"</span>,
                            <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">class</span><span class="op">)</span>,
          category <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">category</span> <span class="op">!=</span> <span class="st">"mushrooms"</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">category</span>, <span class="st">"s$"</span>, <span class="st">""</span><span class="op">)</span>, <span class="va">category</span><span class="op">)</span>
-         <span class="op">)</span>
-
-<span class="va">lookup_df</span> <span class="op">&lt;-</span> <span class="va">lookup_df3</span>
-<span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">lookup_df</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; ✓ Setting active project to '/Users/gabrielodom/Documents/GitHub/DOPE'</span>
-<span class="co">#&gt; ✓ Saving 'lookup_df' to 'data/lookup_df.rda'</span>
-<span class="co">#&gt; ● Document your data (see 'https://r-pkgs.org/data.html')</span></code></pre></div>
+         <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">orange_book</span> <span class="op">&lt;-</span>
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>synonym <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dea_controlled</span><span class="op">$</span><span class="va">substance</span>, <span class="va">dea_controlled</span><span class="op">$</span><span class="va">synonym</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>synonym <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">synonym</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    difficult <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">synonym</span>, <span class="st">"[(]"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">|</span> 
+      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">synonym</span>, <span class="st">",(?=\\S)"</span><span class="op">)</span> <span class="op">|</span>
+      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">synonym</span>, <span class="st">'[-|/|&amp;|,|"| ]'</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">difficult</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">lookup_df</span>, by <span class="op">=</span> <span class="st">"synonym"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">lookup_df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"synonym"</span> <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">lookup_df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"synonym"</span> <span class="op">=</span> <span class="st">"category"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"Unknown"</span>,  class <span class="op">=</span> <span class="st">"Unknown"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">category</span>, <span class="va">synonym</span><span class="op">)</span> 
+  
+    
+<span class="va">lookup_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">lookup_df3</span> , <span class="va">orange_book</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">lookup_df</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; v Setting active project to 'C:/Users/godom/GitHub/CTN-0094/DOPE'</span>
+<span class="co">#&gt; v Saving 'lookup_df' to 'data/lookup_df.rda'</span>
+<span class="co">#&gt; * Document your data (see 'https://r-pkgs.org/data.html')</span></code></pre></div>
 </div>
   </div>
 
