@@ -13,7 +13,7 @@
 #' @importFrom stringr str_detect str_replace_all
 #' @importFrom tidytext unnest_tokens
 #' @importFrom dplyr mutate filter anti_join case_when
-#' @importFrom tibble tibble
+#'
 #' @export
 #'
 #' @examples
@@ -37,7 +37,7 @@ parse <- function(drug_vec){
   #ex. and combination of "speedball" also preserved
 
   unnestedDrugs_df <-
-    tibble(drug_vec) %>%
+    data.frame(drug_vec) %>%
     unnest_tokens(
       word, drug_vec, token = "regex", pattern = "[,|-|+|&| ]", to_lower = TRUE
     ) %>%

@@ -9,7 +9,8 @@ lookup(
   ...,
   searchClass = TRUE,
   searchCategory = TRUE,
-  searchSynonym = TRUE
+  searchSynonym = TRUE,
+  dropUnmatched = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ for in column \code{category}? Defaults to TRUE.}
 
 \item{searchSynonym}{Should the substances listed in \code{...} be searched
 for in column \code{synonym}? Defaults to TRUE.}
+
+\item{dropUnmatched}{Should words in \code{drug_vec} which do not match
+substances in our database be dropped from the table? Defaults to FALSE.}
 }
 \value{
 A lookup table with category \code{data.frame} having four columns:

@@ -38,21 +38,21 @@ Depends:
 Imports: 
     dplyr,
     magrittr,
+    purrr,
     stats,
     stringr,
-    tibble,
+    tidyr,
     tidytext,
     utils
 Suggests: 
-    purrr,
-    knitr,
-    rmarkdown,
     conflicted,
+    knitr,
     readr,
+    rmarkdown,
     rvest,
     sqldf,
-    tidyr,
     testthat,
+    tibble,
     usethis,
     xml2
 VignetteBuilder: knitr

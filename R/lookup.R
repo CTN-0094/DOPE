@@ -12,9 +12,15 @@
 #'   for in column \code{category}? Defaults to TRUE.
 #' @param searchSynonym Should the substances listed in \code{...} be searched
 #'   for in column \code{synonym}? Defaults to TRUE.
+#' @param dropUnmatched Should words in \code{drug_vec} which do not match
+#'   substances in our database be dropped from the table? Defaults to FALSE.
 #'
 #' @return A lookup table with category \code{data.frame} having four columns:
 #'   original search term, drug class, drug category, and drug street name.
+#'
+#' @importFrom purrr map_df
+#' @importFrom tidyr drop_na
+#'
 #' @export
 #'
 #' @examples
@@ -23,23 +29,34 @@
 lookup <- function(drug_vec = NULL, ...,
                    searchClass = TRUE,
                    searchCategory = TRUE,
-                   searchSynonym = TRUE) {
+                   searchSynonym = TRUE,
+                   dropUnmatched = FALSE) {
+  # browser()
 
   thingy <- c(drug_vec, as.character(list(...)))
   thingy_char <- vapply(
     X = as.character(thingy),
     FUN = tolower,
     FUN.VALUE = character(1),
-    USE.NAMES = FALSE)
+    USE.NAMES = FALSE
+  )
 
   # lookup individual words
 
-  answer <- purrr::map_df(thingy_char, .lookup,
-                          searchClass,
-                          searchCategory,
-                          searchSynonym)
+  answer <- map_df(
+    .x = thingy_char,
+    .f = .lookup,
+    searchClass,
+    searchCategory,
+    searchSynonym
+  )
 
   row.names(answer) <- NULL
+
+  if (dropUnmatched) {
+    answer <- drop_na(answer, "class":"synonym")
+  }
+
   answer
 
 }
@@ -68,13 +85,22 @@ lookup <- function(drug_vec = NULL, ...,
   # Combine row match logic (use OR for base FALSE layer)
   matches_lgl <- classRowMatches | categoryRowMatches | synonymRowMatches
 
-  answer <-  DOPE::lookup_df[matches_lgl,, drop = FALSE]
+  answer <-  DOPE::lookup_df[matches_lgl, , drop = FALSE]
 
   if (nrow(answer) == 0){
-    answer <- data.frame(original_word = x, class = NA_character_,  category = NA_character_,
-                         synonym = NA_character_)
+    answer <- data.frame(
+      original_word = x,
+      class = NA_character_,
+      category = NA_character_,
+      synonym = NA_character_
+    )
   } else{
-    answer <- data.frame(original_word = x, answer)
+    answer <- data.frame(
+      original_word = x,
+      answer
+    )
   }
+
   answer
+
 }
