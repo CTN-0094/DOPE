@@ -87,6 +87,7 @@ parse <- function(drug_vec){
 
   #####Cleaning------------------------------
   # extra cleaning
+  # Layla sucks
   clean_names <- sapply(unnestedDrugs_df$word, function(x){
     #remove anything after a / or - or = or "
     name <- sub("\\(.*|-.*|=.*|\".*", NA, x)
