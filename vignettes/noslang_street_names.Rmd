@@ -1,8 +1,8 @@
 ---
-title: "How the noslang_stret_names file was made."
+title: "How the noslang_street_names file was made"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How the noslang_stret_names file was made.}
+  %\VignetteIndexEntry{How the noslang_street_names file was made}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -30,7 +30,7 @@ library(stringr)  # str_detect, str_to_lower()
 library(tidyr) # pivot_longer()
 
 library(tibble)  # tibble()
-library(usethis)  # use_data()
+library(usethis)  # usedata()
 ```
 
 # Scrape No Slang Data
@@ -68,7 +68,7 @@ use_data(noslang_raw, overwrite = TRUE)
 
 # Finding Drug Names
 
-In the No Slang dataset, noslang_street_names (which was scraped from the NoSlang website) there is a `description` variable which contains both drug names and other phrases, for things like amounts.  For the `DOPE` package we extracted the drug names. To do this, a dataset called `ns` was created that contains the unique words/phrases in `description`.  The code below, adds indicator variables beginning with "d_".  That set of variables were created by first checking for drugs that were mentioned by the DEA files. The total number of known drugs in the `description` were tallied.  The records that contained 0 drug names were manually checked and new "d_" variables were added if the description was for a drug.  The new drugs mentioned by NoSlang.com are marked with "# NS".  There are some misspelling and slang words in the `description` variable.  They appear in a `|` separated list in the `str_detect()` calls below.
+In the No Slang dataset, `noslang_street_names` (which was scraped from the NoSlang website) there is a `description` variable which contains both drug names and other phrases, for things like amounts.  For the `DOPE` package we extracted the drug names. To do this, a dataset called `ns` was created that contains the unique words/phrases in `description`.  The code below, adds indicator variables beginning with `d_`.  That set of variables were created by first checking for drugs that were mentioned by the DEA files. The total number of known drugs in the `description` were tallied.  The records that contained 0 drug names were manually checked and new `d_` variables were added if the description was for a drug.  The new drugs mentioned by NoSlang.com are marked with "# NS".  There are some misspelling and slang words in the `description` variable.  They appear in a `|` separated list in the `str_detect()` calls below.
 
 
 ```{r}
