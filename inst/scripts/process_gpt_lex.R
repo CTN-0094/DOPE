@@ -89,7 +89,6 @@ process_gpt_lexicon <- function(gpt_lex, lookup_df) {
   return(extension_data)
 }
 
-
 # Function to classify the extension data by assigning classes to categories
 classify_extension_data <- function(extension_data) {
   # Get unique categories
@@ -149,11 +148,6 @@ process_gpt_lexicon_workflow <- function() {
 
   # Step 2: Classify the extension data
   classified_extension_data <- classify_extension_data(extension_data)
-
-  # Step 3: Remove any remaining unknowns if desired
-  # Uncomment this if you want to remove unclassified terms
-  # classified_extension_data <- classified_extension_data %>%
-  #   filter(class != "unknown")
 
   # Step 4: Combine with existing lookup_df
   updated_lookup <- bind_rows(lookup_df, classified_extension_data)
