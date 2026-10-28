@@ -1,3 +1,19 @@
+# DOPE (development version)
+
+## Breaking Changes:
+- `dea_controlled` was rebuilt from the 21-Oct-2026 DEA Orange Book (803 rows, was 732)
+
+## Additions:
+- `inst/scripts/extract_dea_orange.R` makes `dea_controlled` directly from the DEA Orange Book PDF (no manual editing)
+- Tests for `dea_controlled`
+
+## Minor Updates:
+- Descriptive notes (e.g., "PCP precursor", "various others") are no longer included as synonyms in `dea_controlled`
+- `lookup_df` has not been rebuilt yet
+
+</br>
+
+
 # DOPE 2.1.0
 
 ## Breaking Changes:

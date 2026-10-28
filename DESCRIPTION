@@ -48,6 +48,7 @@ Suggests:
     knitr,
     rmarkdown,
     conflicted,
+    pdftools,
     readr,
     rvest,
     sqldf,

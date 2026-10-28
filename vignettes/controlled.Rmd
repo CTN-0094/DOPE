@@ -20,6 +20,8 @@ library(DOPE)
 ```
 
 
+**Note:** As of October 2026, `dea_controlled` is made from the DEA Orange Book PDF by `inst/scripts/extract_dea_orange.R`, without manual editing. This vignette documents how the original (2020) version was made.
+
 c_cs_alpha.pdf downloaded https://www.deadiversion.usdoj.gov/schedules/orangebook/c_cs_alpha.pdf 2020-09-08
 
 The text file, c_cs_alpha.txt, was opened with UltraEdit and edited to remove headers and the data were aligned to match the drug number column. That manual editing to remove the headers should be done programmatically (perhaps with a package that emulates PERL). Aligning of the drug number column is a major coding task given the structure of the data.

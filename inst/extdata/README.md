@@ -1,7 +1,7 @@
 # Files from DEA
 
 + DIR-020-17DrugSlangCodeWords.pdf
-+ c_cs_alpha.pdf  
++ c_cs_alpha.pdf (21-Oct-2026 edition; downloaded by inst/scripts/extract_dea_orange.R)
 
 # Files we created for vignettes
 + Drugs.jpg 
